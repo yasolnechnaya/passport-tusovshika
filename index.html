@@ -57,6 +57,45 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
 .save-indicator{font-size:11px;color:#aaa;text-align:center;padding:4px 0;min-height:20px}
 .save-indicator.saving{color:#C07D0A}
 .save-indicator.saved{color:#1A7A40}
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:0.5px solid #e0ddd6;display:flex;z-index:100;max-width:420px;margin:0 auto}
+.nav-tab{flex:1;padding:12px 8px 16px;text-align:center;cursor:pointer;font-size:11px;color:#aaa;transition:color 0.15s;border:none;background:transparent;letter-spacing:0.04em}
+.nav-tab.active{color:#E8251A;font-weight:600}
+.nav-tab-icon{font-size:20px;display:block;margin-bottom:2px}
+.wrap{padding-bottom:80px}
+
+.nav-tab-icon{font-size:20px;display:block;margin-bottom:2px}
+.quest-header{background:#1a1a2e;border-radius:16px;padding:1.25rem;margin-bottom:1rem;text-align:center}
+.quest-title{font-size:20px;font-weight:700;color:#FFD700;margin-bottom:4px}
+.quest-sub{font-size:11px;color:#aaa;letter-spacing:0.08em}
+.route-card{background:#fff;border:0.5px solid #e0ddd6;border-radius:16px;padding:1.25rem;margin-bottom:1rem}
+.route-step{display:flex;gap:12px;padding:10px 0;border-bottom:0.5px solid #f0eee8;align-items:flex-start}
+.route-step:last-child{border-bottom:none}
+.route-time{font-size:12px;color:#aaa;min-width:44px;padding-top:2px}
+.route-icon{font-size:20px;flex-shrink:0}
+.route-name{font-size:14px;font-weight:600;color:#1a1a1a}
+.route-desc{font-size:12px;color:#888;margin-top:2px;line-height:1.4}
+.bar-card{background:#fff;border:0.5px solid #e0ddd6;border-radius:16px;padding:1.25rem;margin-bottom:1rem}
+.bar-name{font-size:16px;font-weight:700;color:#1a1a1a;margin-bottom:4px}
+.bar-addr{font-size:12px;color:#aaa;margin-bottom:12px}
+.task-block{border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.task-block-title{font-size:10px;font-weight:600;letter-spacing:0.06em;margin-bottom:6px;text-transform:uppercase}
+.task-block-text{font-size:13px;line-height:1.5;color:#1a1a1a}
+.unlock-btn{width:100%;padding:11px;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;margin-top:10px;transition:opacity 0.15s}
+.unlock-btn:disabled{opacity:0.4;cursor:not-allowed}
+.next-bar{display:none;margin-top:10px;padding:12px;background:#E8F5E9;border-radius:10px;border:0.5px solid #1A7A40;text-align:center}
+.next-bar.show{display:block}
+.next-bar-label{font-size:11px;color:#1A7A40;letter-spacing:0.06em;margin-bottom:4px}
+.next-bar-name{font-size:16px;font-weight:700;color:#1A7A40}
+.task-check{display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer}
+.task-check-box{width:18px;height:18px;border-radius:4px;border:1.5px solid #ddd;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.12s}
+.task-check-box.done{background:#1A7A40;border-color:#1A7A40;color:#fff}
+.task-check-label{font-size:13px;color:#1a1a1a;line-height:1.4}
+.task-check.done .task-check-label{color:#aaa;text-decoration:line-through}
+.ship-card{background:#0a1628;border-radius:16px;padding:2rem 1.25rem;text-align:center;margin-bottom:1rem}
+.ship-emoji{font-size:48px;margin-bottom:12px}
+.ship-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+.ship-sub{font-size:13px;color:#aaa;line-height:1.6}
 </style>
 </head>
 <body>
@@ -121,9 +160,428 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
   <button class="btn-outline btn-danger" onclick="clearAll()" style="margin-top:8px">Сбросить всех гостей</button>
 </div>
 
+
+<div id="s-muzloto" class="screen">
+  <div style="background:#0D0D0D;border-radius:16px;padding:1.25rem;margin-bottom:1rem;text-align:center">
+    <div style="font-size:11px;color:#FF8844;letter-spacing:0.1em;margin-bottom:4px">BIRTHDAY WEEKEND · СПБ</div>
+    <div style="font-size:20px;font-weight:700;color:#FF6600;margin-bottom:2px">МУЗЫКАЛЬНОЕ ЛОТО</div>
+    <div style="font-size:11px;color:#FF8844">12 июня · Дача</div>
+  </div>
+  <div style="background:#fff;border:0.5px solid #e0ddd6;border-radius:16px;padding:1rem;margin-bottom:1rem">
+    <div class="prog-row">
+      <span class="prog-txt">Отмечено</span>
+      <span class="prog-num" id="mz-count" style="color:#FF6600">0 / 25</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="mz-fill" style="width:0%;background:#FF6600"></div></div>
+    <div style="font-size:11px;color:#aaa;margin-bottom:10px">Тапни на клетку когда услышишь песню</div>
+    <div id="mz-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px"></div>
+  </div>
+  <div id="mz-bingo" style="display:none;background:#FFF0EF;border:0.5px solid #E8251A;border-radius:16px;padding:1rem;text-align:center;margin-bottom:1rem">
+    <div style="font-size:18px;font-weight:700;color:#E8251A">🎉 БИНГО!</div>
+    <div style="font-size:13px;color:#993C1D;margin-top:4px">Ты собрал линию — кричи ЛОТО!</div>
+  </div>
+
+<div id="s-quest" class="screen">
+  <div class="quest-header">
+    <div class="quest-title">🗺 БАР-КВЕСТ</div>
+    <div class="quest-sub">13 ИЮНЯ · ЦЕНТР СПБ</div>
+  </div>
+
+  <!-- Маршрут -->
+  <div class="route-card">
+    <div class="lbl">Маршрут дня</div>
+    <div class="route-step">
+      <div class="route-time">15:30</div>
+      <div class="route-icon">⚓</div>
+      <div><div class="route-name">Стар город</div><div class="route-desc">Старт · все вместе · еда · получаем задания</div></div>
+    </div>
+    <div class="route-step">
+      <div class="route-time">17:00</div>
+      <div class="route-icon">🍺</div>
+      <div><div class="route-name">Квест по барам</div><div class="route-desc">Команды расходятся · 3 бара · 45 мин каждый</div></div>
+    </div>
+    <div class="route-step">
+      <div class="route-time">19:30</div>
+      <div class="route-icon">🧀</div>
+      <div><div class="route-name">Чиз Визард / Гоблинский пунш</div><div class="route-desc">Все встречаются · еда · считаем очки</div></div>
+    </div>
+    <div class="route-step">
+      <div class="route-time">21:00</div>
+      <div class="route-icon">🏴‍☠️</div>
+      <div><div class="route-name">Ворон и Ворон / Медоварус</div><div class="route-desc">Финальный бар · итоги квеста · победители</div></div>
+    </div>
+    <div class="route-step">
+      <div class="route-time">22:30</div>
+      <div class="route-icon">🚢</div>
+      <div><div class="route-name">Пристань на Фонтанке</div><div class="route-desc">Посадка на корабль</div></div>
+    </div>
+    <div class="route-step">
+      <div class="route-time">23:00</div>
+      <div class="route-icon">⛵</div>
+      <div><div class="route-name">Отплытие!</div><div class="route-desc">1.5 часа по рекам и каналам СПб</div></div>
+    </div>
+  </div>
+
+  <!-- Твой маршрут по барам -->
+  <div class="route-card" id="team-route-card">
+    <div class="lbl">Маршрут твоей команды</div>
+    <div id="team-route"></div>
+  </div>
+
+  <!-- Задания баров -->
+  <div id="bar-tasks"></div>
+
+  <!-- Общие точки -->
+  <div class="bar-card">
+    <div class="bar-name">⚓ Стар город</div>
+    <div class="bar-addr">Старт вечера</div>
+    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700">
+      <div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div>
+      <div class="task-block-text">Сделайте командное фото в стиле «обложка альбома» — придумайте название группы, позу и настроение. Лучшая обложка получает бонусный балл.</div>
+    </div>
+    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844">
+      <div class="task-block-title" style="color:#E65100">😂 Весёлое</div>
+      <div class="task-block-text">За 3 минуты придумайте и исполните кричалку своей команды — с движениями. Все кричалки исполняются перед всеми перед расходом по барам.</div>
+    </div>
+  </div>
+
+  <div class="bar-card">
+    <div class="bar-name">🧀 Чиз Визард / Гоблинский пунш</div>
+    <div class="bar-addr">Общая точка · встреча всех команд</div>
+    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700">
+      <div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div>
+      <div class="task-block-text">Сделайте фото «до и после» — покажите как выглядела команда в начале дня и как выглядит сейчас. Коллаж скидывается в общий чат.</div>
+    </div>
+    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844">
+      <div class="task-block-title" style="color:#E65100">😂 Весёлое</div>
+      <div class="task-block-text">Командный турнир по «Крокодилу» — каждая команда показывает одно слово: «похмелье», «последний глоток», «бармен-философ», «танцпол в 3 ночи», «утренний звонок маме».</div>
+    </div>
+  </div>
+
+  <div class="bar-card">
+    <div class="bar-name">🏴‍☠️ Ворон и Ворон / Медоварус</div>
+    <div class="bar-addr">Финальный бар · Мучной переулок</div>
+    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700">
+      <div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div>
+      <div class="task-block-text">Воссоздайте стартовое фото «обложка альбома» из Стар города — с учётом что прошло полдня. Сравниваем в общем чате.</div>
+    </div>
+    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844">
+      <div class="task-block-title" style="color:#E65100">😂 Весёлое</div>
+      <div class="task-block-text">Каждая команда готовит тост с упоминанием самого смешного момента дня. Все тосты произносятся перед выходом на корабль.</div>
+    </div>
+  </div>
+</div>
+
+<div id="s-ship" class="screen">
+  <div class="ship-card">
+    <div class="ship-emoji">🚢</div>
+    <div class="ship-title">Корабль</div>
+    <div class="ship-sub">23:00 · Пристань на Фонтанке<br><br>Программа на борту<br>скоро появится здесь ✨</div>
+  </div>
+</div>
+
+</div>
+
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="nav-tab active" id="nav-passport" onclick="switchTab('passport')">
+    <span class="nav-tab-icon">🪪</span>Паспорт
+  </button>
+  <button class="nav-tab" id="nav-muzloto" onclick="switchTab('muzloto')">
+    <span class="nav-tab-icon">🎵</span>Музлото
+  </button>
+  <button class="nav-tab" id="nav-quest" onclick="switchTab('quest')">
+    <span class="nav-tab-icon">🗺</span>Квест
+  </button>
+  <button class="nav-tab" id="nav-ship" onclick="switchTab('ship')">
+    <span class="nav-tab-icon">🚢</span>Корабль
+  </button>
+</nav>
+
 </div>
 
 <script>
+const MUZLOTO_TRACKS = [(1, "Бонд с кнопкой", "Кухни"), (2, "Баста", "Сансара"), (3, "Танцы Минус", "Половинка"), (4, "Найк Борзов", "Верхом на звезде"), (5, "Ляпис Трубецкой", "Капитал"), (6, "Элизиум", "Острова"), (7, "Гудтаймс", "Видение"), (8, "The Hatters", "Да, со мной не просто"), (9, "Rammstein", "Du Hast"), (10, "GAYAZOVS BROTHERS", "Малиновая лада"), (11, "ARTIK&ASTI", "Грустный дэнс"), (12, "Мас Корж", "Жить в кайф"), (13, "Чиж & Co", "О любви"), (14, "Ed Sheeran", "Shape of You"), (15, "O-zone", "Dragostea Din Tei"), (16, "Mark Ronson", "Uptown Funk"), (17, "Michel Telo", "Ai Se Eu Te Pego"), (18, "Zaz", "Je veux"), (19, "Imagine Dragons", "Thunder"), (20, "Maroon 5", "Moves Like Jagger"), (21, "Cristina Aguilera", "Lady Marmalade"), (22, "IOWA", "Улыбайся"), (23, "Отпетые мошенники", "Люби меня, люби"), (24, "CREAM SODA", "Никаких больше вечеринок"), (25, "Антон Токарев", "Седьмой лепесток"), (26, "Гости из будущего", "Беги от меня"), (27, "Земфира", "Ромашки"), (28, "Женя Трофимов", "Самолёты"), (29, "Ray Charles", "Hit The Road Jack"), (30, "Bee Gees", "Stayin Alive"), (31, "Чичерина", "Ту-лу-ла"), (32, "Queen", "I Want To Break Free"), (33, "БАНД"ЭРОС", "Про красивую жизнь"), (34, "50 Cent", "Candy Shop"), (35, "Timbaland", "Give It To Me"), (36, "Валерий Меладзе", "Салют, Вера"), (37, "ВИА ГРА", "Попытка №5"), (38, "Led Zeppelin", "Immigrant Song"), (39, "Pink Floyd", "Another Brick In The Wall"), (40, "Bon Jovi", "It"s My Life"), (41, "A-ha", "Take On Me"), (42, "KREC", "Нежность"), (43, "Akon, Eminem", "Smack That"), (44, "Backstreet Boys", "Show Me The Meaning"), (45, "Black Eyed Peas", "Let"s Get It Started"), (46, "Britney Spears", "Ooops! I Did It Again"), (47, "Green Day", "Boulevard of Broken Dreams"), (48, "Blink-182", "All The Small Things"), (49, "Дискотека Авария", "Если хочешь остаться"), (50, "Uma2rman", "Ночной дозор"), (51, "Леонид Агутин", "Хоп хэй лала лэй"), (52, "t.A.T.u.", "Нас не догонят"), (53, "Кино", "Перемен"), (54, "Би-2", "Варвара"), (55, "Руки вверх!", "Крошка моя"), (56, "Александр Иванов", "Бледный бармен"), (57, "Benny Benassi", "Satisfaction"), (58, "Tarkan", "Shikidim"), (59, "Gloria Gaynor", "I Will Survive"), (60, "Ленинград", "WWW"), (61, "Пропаганда", "Мелом"), (62, "Guano Apes", "Open Your Eyes"), (63, "Nirvana", "Smells Like Teen Spirit"), (64, "The Offspring", "Pretty Fly"), (65, "No Doubt", "Don"t Speak"), (66, "The Prodigy", "Smack My Bitch Up"), (67, "Bloodhound Gang", "The Bad Touch"), (68, "Сектор Газа", "Лирика"), (69, "Сплин", "Орбит без сахара"), (70, "Смысловые галлюцинации", "Вечно молодой")];
+const MUZLOTO_CENTER = [71,"Аллегрова","С днём рождения"];
+
+
+// ===== КВЕСТ =====
+const ROTATION = {
+  0: ['Тесла','Dr. Moro','Хоровод'],       // Красные
+  1: ['Dr. Moro','Хоровод','Тесла'],        // Жёлтые
+  2: ['Хоровод','Тесла','Dr. Moro'],        // Зелёные
+  3: ['Тесла','Хоровод','Dr. Moro'],        // Синие
+  4: ['Dr. Moro','Тесла','Хоровод'],        // Фиолетовые
+};
+
+const BAR_TIMES = ['17:00','17:45','18:30'];
+
+const BAR_DATA = {
+  'Тесла': {
+    addr: 'ул. Рубинштейна, 30',
+    color: '#1a1a2e',
+    light: '#E8EAF6',
+    accent: '#5C6BC0',
+    tasks: [
+      {type:'🔍 Про бар', text:'В Тесла баре есть диджейский пульт в виде стимпанкового органа из труб. Сосчитайте количество труб на пульте и запишите число — это ключ к следующей локации.', bg:'#E8EAF6', border:'#5C6BC0', tc:'#283593'},
+      {type:'🧠 Про именинников', text:'Раунд 1 — «Кто это сделал?» (вопросы 1-7). Ведущий в команде — именинник. Правильный ответ на все 7 вопросов открывает следующий бар.', bg:'#EDE7F6', border:'#7E57C2', tc:'#4527A0'},
+      {type:'📸 Интерактив', text:'Вся команда делает фото в образе персонажей стимпанка — используйте реквизит бара, очки, шляпы. Лучшее фото в общий чат!', bg:'#E3F2FD', border:'#42A5F5', tc:'#1565C0'},
+    ]
+  },
+  'Dr. Moro': {
+    addr: 'ул. Жуковского, 15',
+    color: '#1a0a00',
+    light: '#FBE9E7',
+    accent: '#BF360C',
+    tasks: [
+      {type:'🔍 Про бар', text:'В баре есть клетка. Кто или что в ней находится прямо сейчас? Опишите подробно — это пароль для получения следующей локации у именинника.', bg:'#FBE9E7', border:'#BF360C', tc:'#BF360C'},
+      {type:'🧠 Про именинников', text:'Раунд 2 — «Угадай кого» (вопросы 1-7). Именинник ведёт, команда отвечает. Все 7 правильно — открывается следующий бар.', bg:'#FFF3E0', border:'#FF8F00', tc:'#E65100'},
+      {type:'📸 Интерактив', text:'Уговорите бармена сказать на камеру поздравление именинникам на любом иностранном языке. Чем экзотичнее язык — тем больше баллов!', bg:'#F3E5F5', border:'#AB47BC', tc:'#6A1B9A'},
+    ]
+  },
+  'Хоровод': {
+    addr: 'ул. Некрасова, 58',
+    color: '#0a1a0a',
+    light: '#E8F5E9',
+    accent: '#2E7D32',
+    tasks: [
+      {type:'🔍 Про бар', text:'Хоровод находится в историческом здании. Найдите на фасаде или внутри любую дату, связанную со зданием, и расскажите что произошло в этот год в России.', bg:'#E8F5E9', border:'#2E7D32', tc:'#1B5E20'},
+      {type:'🧠 Про именинников', text:'Раунд 3 — Финал на скорость (вопросы 1-5). Кто первым кричит правильный ответ — получает балл. Именинник ведёт.', bg:'#F1F8E9', border:'#558B2F', tc:'#33691E'},
+      {type:'📸 Интерактив', text:'Организуйте живой хоровод прямо в баре — все члены команды плюс минимум 2 случайных гостя бара. Снять на видео минимум 10 секунд!', bg:'#E0F7FA', border:'#00897B', tc:'#004D40'},
+    ]
+  },
+};
+
+// Прогресс заданий
+let questProgress = {};
+let questSaveTimer = null;
+
+function renderQuestTab() {
+  if(!myData) return;
+  const team = TEAMS[myData.team];
+  const rotation = ROTATION[myData.team];
+
+  // Маршрут команды
+  const routeEl = document.getElementById('team-route');
+  if(routeEl) {
+    routeEl.innerHTML = rotation.map((bar, i) => `
+      <div class="route-step">
+        <div class="route-time">${BAR_TIMES[i]}</div>
+        <div class="route-icon">🍺</div>
+        <div>
+          <div class="route-name" style="color:${team.color}">${bar}</div>
+          <div class="route-desc">${BAR_DATA[bar].addr}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  // Задания баров
+  const tasksEl = document.getElementById('bar-tasks');
+  if(tasksEl) {
+    tasksEl.innerHTML = rotation.map((bar, barIdx) => {
+      const bd = BAR_DATA[bar];
+      const nextBar = rotation[barIdx+1] || null;
+      const progressKey = 'bar_'+barIdx;
+      const prog = questProgress[progressKey] || [false,false,false];
+      const allDone = prog.every(Boolean);
+
+      return `<div class="bar-card">
+        <div class="bar-name">${bar}</div>
+        <div class="bar-addr">${bd.addr} · ${BAR_TIMES[barIdx]}</div>
+        ${bd.tasks.map((t,ti) => `
+          <div class="task-block" style="background:${t.bg};border:0.5px solid ${t.border}">
+            <div class="task-block-title" style="color:${t.tc}">${t.type}</div>
+            <div class="task-check" onclick="toggleQuestTask(${barIdx},${ti})">
+              <div class="task-check-box ${prog[ti]?'done':''}">${prog[ti]?'✓':''}</div>
+              <div class="task-check-label ${prog[ti]?'done':''}">${t.text}</div>
+            </div>
+          </div>`).join('')}
+        <div class="next-bar ${allDone?'show':''}" id="nextbar_${barIdx}">
+          <div class="next-bar-label">✅ ВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ · СЛЕДУЮЩИЙ БАР:</div>
+          <div class="next-bar-name">${nextBar || '🧀 Чиз Визард / Гоблинский пунш'}</div>
+          ${nextBar ? '<div style="font-size:11px;color:#1A7A40;margin-top:4px">'+BAR_DATA[nextBar].addr+'</div>' : '<div style="font-size:11px;color:#1A7A40;margin-top:4px">Все встречаются · 19:30</div>'}
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function toggleQuestTask(barIdx, taskIdx) {
+  const key = 'bar_'+barIdx;
+  if(!questProgress[key]) questProgress[key] = [false,false,false];
+  questProgress[key][taskIdx] = !questProgress[key][taskIdx];
+  const allDone = questProgress[key].every(Boolean);
+  const nextBarEl = document.getElementById('nextbar_'+barIdx);
+  if(nextBarEl) nextBarEl.classList.toggle('show', allDone);
+  // Обновляем чекбокс
+  renderQuestTab();
+  scheduleQuestSave();
+}
+
+function scheduleQuestSave() {
+  if(questSaveTimer) clearTimeout(questSaveTimer);
+  questSaveTimer = setTimeout(saveQuestProgress, 1000);
+}
+
+async function saveQuestProgress() {
+  if(!myData) return;
+  const key = nameKey(myData.name);
+  await dbSet('/guests/'+key+'/quest', questProgress);
+}
+
+async function loadQuestProgress() {
+  if(!myData) return;
+  const key = nameKey(myData.name);
+  const data = await dbGet('/guests/'+key+'/quest');
+  if(data) questProgress = data;
+  else questProgress = {};
+}
+
+// ===== МУЗЛОТО =====
+let mzState = new Array(25).fill(false);
+let mzCard = [];
+let mzSaveTimer = null;
+
+function hashForCard(name) {
+  let h = 0;
+  const s = name + '_muzloto';
+  for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}
+  return Math.abs(h);
+}
+
+function generateCard(name) {
+  const h = hashForCard(name);
+  const pool = [...MUZLOTO_TRACKS];
+  // Перемешиваем на основе имени
+  for(let i=pool.length-1;i>0;i--){
+    const j=Math.abs((h*(i+1))^(h>>3))%(i+1);
+    [pool[i],pool[j]]=[pool[j],pool[i]];
+  }
+  const selected = pool.slice(0,24);
+  // Вставляем Аллегрову в центр (позиция 12)
+  return [...selected.slice(0,12), MUZLOTO_CENTER, ...selected.slice(12)];
+}
+
+function renderMzGrid() {
+  const grid = document.getElementById('mz-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  mzCard.forEach((t, i) => {
+    const isCenter = i === 12;
+    const checked = mzState[i];
+    const cell = document.createElement('div');
+    cell.style.cssText = `
+      border-radius:6px;padding:4px 2px;cursor:pointer;text-align:center;
+      border:0.5px solid ${checked?(isCenter?'#FFD700':'#FF6600'):'#e0ddd6'};
+      background:${checked?(isCenter?'#FF4500':'#1A0A00'):'#fafafa'};
+      min-height:52px;display:flex;flex-direction:column;justify-content:center;
+      -webkit-tap-highlight-color:transparent;
+    `;
+    cell.onclick = () => toggleMzCell(i);
+    const num = document.createElement('div');
+    num.style.cssText = `font-size:8px;color:${checked?'#FF8844':'#ccc'};margin-bottom:1px;`;
+    num.textContent = isCenter ? '★' : '#'+t[0];
+    const song = document.createElement('div');
+    song.style.cssText = `font-size:8px;font-weight:600;color:${checked?(isCenter?'#FFD700':'#FFCC44'):'#333'};line-height:1.2;`;
+    song.textContent = t[2].length > 14 ? t[2].slice(0,13)+'…' : t[2];
+    const artist = document.createElement('div');
+    artist.style.cssText = `font-size:7px;color:${checked?'#FF8844':'#aaa'};margin-top:1px;line-height:1.1;`;
+    artist.textContent = t[1].split(',')[0].slice(0,12);
+    cell.appendChild(num);
+    cell.appendChild(song);
+    cell.appendChild(artist);
+    grid.appendChild(cell);
+  });
+  checkBingo();
+}
+
+function toggleMzCell(i) {
+  mzState[i] = !mzState[i];
+  renderMzGrid();
+  updateMzProgress();
+  scheduleMzSave();
+}
+
+function updateMzProgress() {
+  const done = mzState.filter(Boolean).length;
+  const el = document.getElementById('mz-count');
+  const fill = document.getElementById('mz-fill');
+  if(el) el.textContent = done + ' / 25';
+  if(fill) fill.style.width = Math.round(done/25*100) + '%';
+}
+
+function checkBingo() {
+  const lines = [
+    [0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],
+    [0,5,10,15,20],[1,6,11,16,21],[2,7,12,17,22],[3,8,13,18,23],[4,9,14,19,24],
+    [0,6,12,18,24],[4,8,12,16,20]
+  ];
+  const hasBingo = lines.some(line => line.every(i => mzState[i]));
+  const el = document.getElementById('mz-bingo');
+  if(el) el.style.display = hasBingo ? 'block' : 'none';
+}
+
+function scheduleMzSave() {
+  if(mzSaveTimer) clearTimeout(mzSaveTimer);
+  mzSaveTimer = setTimeout(saveMzProgress, 1000);
+}
+
+async function saveMzProgress() {
+  if(!myData) return;
+  const key = nameKey(myData.name);
+  await dbSet('/guests/'+key+'/muzloto', {state: mzState});
+}
+
+async function loadMzProgress() {
+  if(!myData) return;
+  const key = nameKey(myData.name);
+  const data = await dbGet('/guests/'+key+'/muzloto');
+  if(data && data.state) {
+    mzState = data.state;
+  } else {
+    mzState = new Array(25).fill(false);
+  }
+  mzCard = generateCard(myData.name);
+  renderMzGrid();
+  updateMzProgress();
+}
+
+// ===== НАВИГАЦИЯ =====
+let currentTab = 'passport';
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+tab);
+  if(navEl) navEl.classList.add('active');
+
+  ['s-muzloto','s-quest','s-ship'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.classList.remove('active');
+  });
+
+  if(tab === 'passport') {
+    if(myData) showScreen('s-passport');
+    else showScreen('s-enter');
+  } else if(tab === 'muzloto') {
+    if(!myData) { showScreen('s-enter'); return; }
+    showScreen('s-muzloto');
+    if(mzCard.length === 0) loadMzProgress();
+  } else if(tab === 'quest') {
+    if(!myData) { showScreen('s-enter'); return; }
+    showScreen('s-quest');
+    renderQuestTab();
+  } else if(tab === 'ship') {
+    if(!myData) { showScreen('s-enter'); return; }
+    showScreen('s-ship');
+  }
+}
+
+// Показываем навигацию только после входа
+function showNav(show) {
+  const nav = document.getElementById('bottom-nav');
+  if(nav) nav.style.display = show ? 'flex' : 'none';
+}
+
 const DB = 'https://passport-tusovshika-default-rtdb.europe-west1.firebasedatabase.app';
 
 const TEAMS = [
@@ -243,6 +701,9 @@ function renderPassport(g){
   document.getElementById('reward-text').style.color=team.color;
   renderStamps(team.color);
   updateProgress(team.color);
+  showNav(true);
+  loadMzProgress();
+  loadQuestProgress();
 }
 
 function renderStamps(color){
@@ -276,6 +737,9 @@ function updateProgress(color){
 
 function resetPassport(){
   myData=null;nameInput.value='';btnStart.disabled=true;
+  mzCard=[];mzState=new Array(25).fill(false);
+  questProgress={};
+  showNav(false);
   showScreen('s-enter');
 }
 
