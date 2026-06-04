@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Паспорт тусовщика — Birthday Weekend СПб</title>
+<meta name="description" content="Birthday Weekend 12-14 июня 2026, Санкт-Петербург">
+<meta property="og:title" content="Паспорт тусовщика 🎉">
+<meta property="og:description" content="Получи свой паспорт тусовщика — Birthday Weekend 12-14 июня, СПб">
+<meta property="og:type" content="website">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a}
+.wrap{max-width:420px;margin:0 auto;padding:1.5rem 1rem 3rem}
+.screen{display:none}
+.screen.active{display:block}
+
+/* Cover */
+.cover{border-radius:16px;padding:2.5rem 1.5rem;text-align:center;margin-bottom:1rem;background:#E8251A}
+.cover-small{font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:0.12em;margin-bottom:10px}
+.cover-big{font-size:36px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:1.5rem;letter-spacing:-0.5px}
+.cover-sub{font-size:13px;color:rgba(255,255,255,0.75)}
+
+/* Cards */
+.card{background:#fff;border:0.5px solid #e0ddd6;border-radius:16px;padding:1.25rem;margin-bottom:1rem}
+.lbl{font-size:11px;color:#aaa;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:10px}
+
+/* Input */
+.name-input{width:100%;font-size:18px;font-weight:500;border:none;background:transparent;color:#1a1a1a;outline:none;padding:0}
+.name-input::placeholder{color:#ccc;font-weight:400}
+
+/* Buttons */
+.btn{width:100%;padding:14px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:opacity 0.15s;letter-spacing:0.01em}
+.btn:hover{opacity:0.9}
+.btn:disabled{opacity:0.35;cursor:not-allowed}
+.btn-outline{width:100%;padding:11px;font-size:13px;color:#888;background:transparent;border:0.5px solid #ddd;border-radius:10px;cursor:pointer;margin-top:8px;transition:background 0.12s}
+.btn-outline:hover{background:#f5f4f0}
+.btn-danger{color:#E8251A;border-color:#E8251A}
+.btn-danger:hover{background:#FFF0EF}
+.admin-link{font-size:11px;color:#bbb;background:transparent;border:none;cursor:pointer;padding:6px 0;display:block;margin:8px auto 0;text-decoration:underline;text-decoration-color:#ddd}
+
+/* Passport cover */
+.passport-cover{border-radius:16px;padding:1.75rem 1.5rem;margin-bottom:1rem;text-align:center}
+.pc-small{font-size:11px;letter-spacing:0.12em;opacity:0.7;margin-bottom:8px;color:#fff;text-transform:uppercase}
+.pc-name{font-size:28px;font-weight:700;color:#fff;margin-bottom:6px;letter-spacing:-0.3px}
+.pc-title{font-size:15px;opacity:0.9;color:#fff;margin-bottom:4px;font-weight:500}
+.pc-team{font-size:11px;opacity:0.65;color:#fff;letter-spacing:0.08em;text-transform:uppercase}
+.pc-num{font-size:10px;opacity:0.5;color:#fff;margin-top:10px;letter-spacing:0.1em}
+
+/* Task */
+.task-text{font-size:15px;color:#1a1a1a;line-height:1.6;font-weight:500}
+
+/* Stamps */
+.prog-row{display:flex;justify-content:space-between;margin-bottom:6px}
+.prog-txt{font-size:12px;color:#888}
+.prog-num{font-size:12px;font-weight:600}
+.prog-bar{height:3px;background:#f0eee8;border-radius:2px;margin-bottom:14px}
+.prog-fill{height:3px;border-radius:2px;transition:width 0.35s}
+.stamps-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stamp{border:0.5px solid #e0ddd6;border-radius:12px;padding:12px 8px;cursor:pointer;transition:all 0.12s;text-align:center;background:#fff;-webkit-tap-highlight-color:transparent}
+.stamp:active{transform:scale(0.97)}
+.stamp-icon{width:40px;height:40px;border-radius:50%;border:1.5px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;transition:all 0.12s;font-size:18px}
+.stamp-text{font-size:11px;color:#666;line-height:1.35}
+.stamp-time{font-size:10px;color:#bbb;margin-top:4px;min-height:14px}
+
+/* Reward */
+.reward-card{border-radius:16px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center;display:none;border:0.5px solid}
+.reward-card.show{display:block}
+.reward-text{font-size:15px;font-weight:600}
+
+/* Admin */
+.team-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
+.tstat{background:#f8f7f4;border-radius:10px;padding:12px 14px}
+.tstat-name{font-size:12px;color:#888;margin-bottom:4px}
+.tstat-count{font-size:22px;font-weight:700}
+.guest-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid #f0eee8;font-size:14px}
+.guest-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.guest-title{font-size:12px;color:#aaa}
+
+/* Loading */
+.loading{text-align:center;padding:3rem 1rem;color:#aaa;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- Экран входа -->
+<div id="s-enter" class="screen active">
+  <div class="cover">
+    <div class="cover-small">Birthday Weekend · СПб</div>
+    <div class="cover-big">ПАСПОРТ<br>ТУСОВЩИКА</div>
+    <div class="cover-sub">12–14 июня 2026</div>
+  </div>
+  <div class="card">
+    <div class="lbl">Как тебя зовут?</div>
+    <input class="name-input" id="name-input" placeholder="Введи своё имя" maxlength="24" autocomplete="off" inputmode="text">
+  </div>
+  <button class="btn" id="btn-start" onclick="startPassport()" disabled style="background:#E8251A">Получить паспорт 🎉</button>
+</div>
+
+<!-- Паспорт -->
+<div id="s-passport" class="screen">
+  <div class="passport-cover" id="pc-cover">
+    <div class="pc-small">Паспорт тусовщика</div>
+    <div class="pc-name" id="pc-name">—</div>
+    <div class="pc-title" id="pc-title">—</div>
+    <div class="pc-team" id="pc-team">—</div>
+    <div class="pc-num" id="pc-num">серия ДР · № 001</div>
+  </div>
+
+  <div class="card">
+    <div class="lbl">Твоё тайное задание</div>
+    <div class="task-text" id="task-text">—</div>
+  </div>
+
+  <div class="card">
+    <div class="lbl">Печати</div>
+    <div class="prog-row">
+      <span class="prog-txt">Собрано</span>
+      <span class="prog-num" id="scount" style="color:#E8251A">0 / 10</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="sfill" style="width:0%;background:#E8251A"></div></div>
+    <div class="stamps-grid" id="stamps-grid"></div>
+  </div>
+
+  <div class="reward-card" id="reward">
+    <div class="reward-text" id="reward-text">🏆 Все 10 печатей — ты легенда праздника!</div>
+  </div>
+
+  <button class="btn-outline" onclick="resetPassport()">Сменить имя</button>
+  <button class="admin-link" onclick="showAdmin()">панель организатора</button>
+</div>
+
+<!-- Загрузка -->
+<div id="s-loading" class="screen">
+  <div class="loading">Загружаем твой паспорт...</div>
+</div>
+
+<!-- Админ -->
+<div id="s-admin" class="screen">
+  <div class="card">
+    <div class="lbl">Распределение по командам</div>
+    <div class="team-stats" id="team-stats"></div>
+  </div>
+  <div class="card">
+    <div class="lbl">Зарегистрированные гости</div>
+    <div id="guest-list"></div>
+  </div>
+  <button class="btn-outline" onclick="showPassport()">← Назад к паспорту</button>
+  <button class="btn-outline btn-danger" onclick="clearAll()" style="margin-top:8px">Сбросить всех гостей</button>
+</div>
+
+</div>
+
+<script>
+const TEAMS = [
+  {name:"Красная команда",color:"#E8251A",light:"#FFF0EF",titles:["Главная зажигалочка","Король вечеринки","Огонь компании","Мастер тоста","Душа праздника","Главный заводила","Звезда шашлыка","Легенда дачи","Капитан веселья","Властелин танцпола"]},
+  {name:"Жёлтая команда",color:"#C07D0A",light:"#FFFAED",titles:["Звезда танцпола","Солнце компании","Золотой человек","Главный оптимист","Лучший тусовщик","Мастер настроения","Самый яркий","Генератор позитива","Главный по смеху","Чемпион по смеху"]},
+  {name:"Зелёная команда",color:"#1A7A40",light:"#EDFAF3",titles:["Легенда вечера","Главный по обнимашкам","Мастер знакомств","Главный по приключениям","Герой праздника","Самый отчаянный","Король авантюр","Главный исследователь","Мастер сюрпризов","Абсолютный победитель"]},
+  {name:"Синяя команда",color:"#185FA5",light:"#EDF4FF",titles:["Душа компании","Главный романтик","Мастер комплиментов","Лучший собеседник","Главный по тостам","Сердце вечеринки","Самый внимательный","Мастер хорошего вкуса","Главный дипломат","Самый обаятельный"]},
+  {name:"Фиолетовая команда",color:"#5E1F9A",light:"#F5EDFF",titles:["Тайный агент праздника","Мистер загадка","Главный интриган","Мастер конспирации","Легенда в тени","Самый непредсказуемый","Ночной король","Мастер исчезновений","Главный по секретам","Абсолютная легенда"]},
+];
+
+const TASKS = ["Спеть куплет любой песни подходящей к тосту","Придумать и рассказать тост не подходящий ни одному имениннику","Сделать комплимент каждому имениннику лично","Рассказать сюжет любого фильма как самую смешную историю из своей жизни","Организовать спонтанный флешмоб на 10 секунд","Повторять за именинниками рандомные слова","Пригласить любого человека на медленный танец","Пройти задом наперёд от одного конца стола до другого","Подарить или продать своего знакомого имениннику","Рекламировать шашлык как продавец на рынке","Угощать всех вокруг едой со своей тарелки","Объявить каждое новое блюдо как ресторанный официант","Называть всех по имени-отчеству при каждом обращении","Рассказывать несмешные анекдоты с серьёзным лицом","Постоянно хвалить именинников при любом удобном случае","При каждом тосте вставать и аплодировать стоя","Всем представляться выдуманным именем весь вечер","Задавать всем один вопрос: кто ты по знаку зодиака?","Придумать всем гостям прозвища и обращаться только по ним","Делать вид что ты знаменитость и раздавать автографы","Станцевать хоровод — организовать и провести","При каждом тосте чокнуться со всеми присутствующими лично","Сделать селфи с каждым гостем по очереди","Провести экскурсию по даче как профессиональный гид","Провести мастер-класс по любому навыку","Быть личным глашатаем именинников — объявлять их появление","Быть тамадой одного тоста — максимально торжественно","Придумать и исполнить рекламный джингл про этот праздник","Провести перекличку всех гостей по именам","Объявлять результаты каждого конкурса как спортивный комментатор","Давать всем советы по шашлыку у мангала","Нюхать каждое блюдо перед тем как съесть","Называть все напитки французскими названиями","Есть очень медленно — комментировать каждый кусок","Придумать название каждому блюду на столе","Пить воду как будто это самое изысканное вино","Познакомить между собой минимум 5 пар незнакомых гостей","Провести светскую беседу о погоде с серьёзным лицом","Делать вид что видишь всех впервые и знакомиться заново","Отвечать на все вопросы вопросом в течение 15 минут","Давать всем советы по жизни которых никто не просил","Находить глубокий смысл в любой мелочи и рассказывать об этом","Весь вечер говорить что раньше праздники были другими","Рассказывать о своём великом прошлом при каждом удобном случае","Говорить о себе в третьем лице в течение 15 минут","Начинать каждую фразу со слов как говорил мой дедушка","Изобразить пантомиму — любое животное пока не угадают","Вести репортаж с праздника как журналист — вслух","Изобразить любого именинника так чтобы все угадали","Организовать голосование за лучший тост вечера"];
+
+const STAMPS = ["Собрал бинго в музлото","Выжил в бане","Посетил все бары","Произнёс тост","Помогал организатору","Фото с именинниками","Выполнил тайное задание","Танцевал 3 минуты","Громко пел на корабле","Выиграл конкурс"];
+const STAMP_EMOJI = ["🎵","🔥","🍺","🥂","🤝","📸","🕵️","💃","🚢","🏆"];
+
+// Хранилище — используем Firebase Realtime Database (бесплатно)
+// ЗАМЕНИ НА СВОЙ URL ПОСЛЕ СОЗДАНИЯ FIREBASE ПРОЕКТА:
+const DB_URL = 'https://passport-tusovshika-default-rtdb.firebaseio.com';
+
+function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);}
+
+let myData = null;
+let stampState = new Array(10).fill(false);
+let stampTimes = new Array(10).fill('');
+
+const nameInput = document.getElementById('name-input');
+const btnStart = document.getElementById('btn-start');
+
+nameInput.addEventListener('input', function(){
+  btnStart.disabled = this.value.trim().length < 2;
+});
+nameInput.addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && this.value.trim().length >= 2) startPassport();
+});
+
+async function getGuests(){
+  try {
+    const r = await fetch(DB_URL + '/guests.json');
+    const data = await r.json();
+    return data ? Object.values(data) : [];
+  } catch(e){ return []; }
+}
+
+async function saveGuest(guest){
+  try {
+    const key = guest.name.toLowerCase().replace(/[^a-zа-яё0-9]/gi,'_');
+    await fetch(DB_URL + '/guests/' + key + '.json', {
+      method: 'PUT',
+      body: JSON.stringify(guest)
+    });
+  } catch(e){}
+}
+
+async function startPassport(){
+  const name = nameInput.value.trim();
+  if(name.length < 2) return;
+
+  showScreen('s-loading');
+
+  const guests = await getGuests();
+  const existing = guests.find(g => g.name.toLowerCase() === name.toLowerCase());
+
+  let guestData;
+  if(existing){
+    guestData = existing;
+  } else {
+    const teamCounts = TEAMS.map((_,i) => guests.filter(g => g.team === i).length);
+    const minCount = Math.min(...teamCounts);
+    const availTeams = teamCounts.map((c,i) => c === minCount ? i : -1).filter(i => i >= 0);
+    const teamIdx = availTeams[hashStr(name) % availTeams.length];
+    const team = TEAMS[teamIdx];
+    const inTeam = guests.filter(g => g.team === teamIdx).length;
+    const titleIdx = inTeam % team.titles.length;
+    const taskIdx = hashStr(name) % TASKS.length;
+    const passNum = (hashStr(name) % 900) + 100;
+    guestData = {name, team: teamIdx, title: team.titles[titleIdx], task: taskIdx, num: passNum};
+    await saveGuest(guestData);
+  }
+
+  myData = guestData;
+  stampState = new Array(10).fill(false);
+  stampTimes = new Array(10).fill('');
+
+  renderPassport(guestData);
+  showScreen('s-passport');
+}
+
+function renderPassport(g){
+  const team = TEAMS[g.team];
+  document.getElementById('pc-cover').style.background = team.color;
+  document.getElementById('pc-name').textContent = g.name;
+  document.getElementById('pc-title').textContent = g.title;
+  document.getElementById('pc-team').textContent = team.name.toUpperCase();
+  document.getElementById('pc-num').textContent = 'серия ДР · № ' + g.num;
+  document.getElementById('task-text').textContent = TASKS[g.task];
+  document.getElementById('scount').style.color = team.color;
+  document.getElementById('sfill').style.background = team.color;
+
+  const reward = document.getElementById('reward');
+  reward.style.background = team.light;
+  reward.style.borderColor = team.color;
+  document.getElementById('reward-text').style.color = team.color;
+
+  renderStamps(team.color);
+  updateProgress(team.color);
+}
+
+function renderStamps(color){
+  const grid = document.getElementById('stamps-grid');
+  grid.innerHTML = '';
+  STAMPS.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'stamp';
+    if(stampState[i]){
+      div.style.background = color + '15';
+      div.style.borderColor = color;
+    }
+    div.onclick = () => toggleStamp(i, color);
+    div.innerHTML = `
+      <div class="stamp-icon" style="${stampState[i] ? 'border-color:'+color+';background:'+color : ''}">${STAMP_EMOJI[i]}</div>
+      <div class="stamp-text" style="${stampState[i] ? 'color:'+color+';font-weight:500' : ''}">${s}</div>
+      <div class="stamp-time" style="${stampState[i] ? 'color:'+color : ''}">${stampTimes[i]}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+function toggleStamp(i, color){
+  stampState[i] = !stampState[i];
+  if(stampState[i]){
+    const now = new Date();
+    stampTimes[i] = now.getHours() + ':' + String(now.getMinutes()).padStart(2,'0');
+  } else {
+    stampTimes[i] = '';
+  }
+  renderStamps(color);
+  updateProgress(color);
+}
+
+function updateProgress(color){
+  const done = stampState.filter(Boolean).length;
+  document.getElementById('scount').textContent = done + ' / 10';
+  document.getElementById('sfill').style.width = Math.round(done/10*100) + '%';
+  document.getElementById('reward').classList.toggle('show', done === 10);
+}
+
+function resetPassport(){
+  myData = null;
+  nameInput.value = '';
+  btnStart.disabled = true;
+  showScreen('s-enter');
+}
+
+async function showAdmin(){
+  showScreen('s-loading');
+  const guests = await getGuests();
+
+  const stats = document.getElementById('team-stats');
+  stats.innerHTML = TEAMS.map((t,i) => {
+    const cnt = guests.filter(g => g.team === i).length;
+    return `<div class="tstat">
+      <div class="tstat-name" style="color:${t.color}">${t.name}</div>
+      <div class="tstat-count" style="color:${t.color}">${cnt} чел.</div>
+    </div>`;
+  }).join('');
+
+  const gl = document.getElementById('guest-list');
+  if(!guests.length){
+    gl.innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px 0">Пока никто не зарегистрировался</div>';
+  } else {
+    gl.innerHTML = guests.map(g => `
+      <div class="guest-item">
+        <div class="guest-dot" style="background:${TEAMS[g.team].color}"></div>
+        <div>
+          <div style="font-size:14px">${g.name}</div>
+          <div class="guest-title">${g.title} · ${TEAMS[g.team].name}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  showScreen('s-admin');
+}
+
+function showPassport(){
+  if(myData){ showScreen('s-passport'); }
+  else { showScreen('s-enter'); }
+}
+
+async function clearAll(){
+  if(confirm('Сбросить список всех гостей? Это действие нельзя отменить.')){
+    try {
+      await fetch(DB_URL + '/guests.json', {method:'DELETE'});
+      document.getElementById('team-stats').innerHTML = '';
+      document.getElementById('guest-list').innerHTML = '<div style="color:#aaa;font-size:13px;padding:8px 0">Список очищен</div>';
+    } catch(e){ alert('Ошибка при сбросе'); }
+  }
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>
