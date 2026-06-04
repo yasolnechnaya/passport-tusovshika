@@ -100,6 +100,11 @@ body{min-height:100%;background:#f5f4f0;font-family:-apple-system,BlinkMacSystem
 .ship-emoji{font-size:48px;margin-bottom:12px}
 .ship-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
 .ship-sub{font-size:13px;color:#aaa;line-height:1.6}
+.code-block{background:#fff;border:0.5px solid #e0ddd6;border-radius:16px;padding:1.25rem;margin-bottom:1rem}
+.code-input{width:100%;font-size:16px;font-weight:500;border:none;background:transparent;color:#1a1a1a;outline:none;padding:0;text-transform:uppercase;letter-spacing:0.08em}
+.code-input::placeholder{color:#ccc;font-weight:400;text-transform:none;letter-spacing:0}
+.code-error{font-size:12px;color:#E8251A;margin-top:8px;display:none}
+.code-error.show{display:block}
 /* Навигация */
 .nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:0.5px solid #e0ddd6;display:none;z-index:100}
 .nav.show{display:flex}
@@ -196,7 +201,13 @@ body{min-height:100%;background:#f5f4f0;font-family:-apple-system,BlinkMacSystem
     <div class="route-step"><div class="route-time">23:00</div><div class="route-icon">⛵</div><div><div class="route-name">Отплытие!</div><div class="route-desc">1.5 часа по рекам и каналам СПб</div></div></div>
   </div>
   <div id="team-route" style="display:none"></div>
-  <div id="bar-tasks"></div>
+  <div id="code-block" class="code-block">
+    <div class="lbl">Введи кодовое слово</div>
+    <input class="code-input" id="code-input" onkeydown="if(event.key==='Enter')checkCode()" placeholder="Кодовое слово..." maxlength="20" autocomplete="off">
+    <div class="code-error" id="code-error">Неверное слово, попробуй ещё раз</div>
+    <button class="btn" style="margin-top:12px" onclick="checkCode()">Начать квест 🗺</button>
+  </div>
+  <div id="bar-tasks" style="display:none"></div>
   <div class="bar-card">
     <div class="bar-name">⚓ Стар город</div>
     <div class="bar-addr">Старт вечера</div>
@@ -414,10 +425,29 @@ function scheduleMzSave(){
 }
 
 // Квест
+function checkCode(){
+  const val = document.getElementById('code-input').value.trim().toUpperCase();
+  if(val === 'ТУСОВОЧКА') {
+    questProgress['started'] = true;
+    dbSet('/guests/'+nameKey(myData.name)+'/quest', questProgress);
+    renderQuestTab();
+  } else {
+    document.getElementById('code-error').classList.add('show');
+    setTimeout(()=>document.getElementById('code-error').classList.remove('show'), 2000);
+  }
+}
+
 function renderQuestTab(){
   if(!myData)return;
   const t=TEAMS[myData.team];
   const rot=ROTATION[myData.team];
+  // Проверяем начат ли квест
+  const questStarted = questProgress['started'] === true;
+  const codeBlock = document.getElementById('code-block');
+  const barTasks = document.getElementById('bar-tasks');
+  if(codeBlock) codeBlock.style.display = questStarted ? 'none' : 'block';
+  if(barTasks) barTasks.style.display = questStarted ? 'block' : 'none';
+  if(!questStarted) return;
 
   const te=document.getElementById('bar-tasks');if(!te)return;
 
