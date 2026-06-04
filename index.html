@@ -97,6 +97,14 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
 .ship-emoji{font-size:48px;margin-bottom:12px}
 .ship-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
 .ship-sub{font-size:13px;color:#aaa;line-height:1.6}
+
+#s-muzloto, #s-quest, #s-ship {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 5rem;
+  background: #f5f4f0;
+  min-height: 100vh;
+}
 </style>
 </head>
 <body>
@@ -162,6 +170,24 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
 </div>
 
 
+
+</div>
+
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="nav-tab active" id="nav-passport" onclick="switchTab('passport')">
+    <span class="nav-tab-icon">🪪</span>Паспорт
+  </button>
+  <button class="nav-tab" id="nav-muzloto" onclick="switchTab('muzloto')">
+    <span class="nav-tab-icon">🎵</span>Музлото
+  </button>
+  <button class="nav-tab" id="nav-quest" onclick="switchTab('quest')">
+    <span class="nav-tab-icon">🗺</span>Квест
+  </button>
+  <button class="nav-tab" id="nav-ship" onclick="switchTab('ship')">
+    <span class="nav-tab-icon">🚢</span>Корабль
+  </button>
+</nav>
+
 <div id="s-muzloto" class="screen">
   <div style="background:#0D0D0D;border-radius:16px;padding:1.25rem;margin-bottom:1rem;text-align:center">
     <div style="font-size:11px;color:#FF8844;letter-spacing:0.1em;margin-bottom:4px">BIRTHDAY WEEKEND · СПБ</div>
@@ -181,6 +207,7 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
     <div style="font-size:18px;font-weight:700;color:#E8251A">🎉 БИНГО!</div>
     <div style="font-size:13px;color:#993C1D;margin-top:4px">Ты собрал линию — кричи ЛОТО!</div>
   </div>
+
 
 <div id="s-quest" class="screen">
   <div class="quest-header">
@@ -273,6 +300,7 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
   </div>
 </div>
 
+
 <div id="s-ship" class="screen">
   <div class="ship-card">
     <div class="ship-emoji">🚢</div>
@@ -281,22 +309,6 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
   </div>
 </div>
 
-</div>
-
-<nav class="bottom-nav" id="bottom-nav">
-  <button class="nav-tab active" id="nav-passport" onclick="switchTab('passport')">
-    <span class="nav-tab-icon">🪪</span>Паспорт
-  </button>
-  <button class="nav-tab" id="nav-muzloto" onclick="switchTab('muzloto')">
-    <span class="nav-tab-icon">🎵</span>Музлото
-  </button>
-  <button class="nav-tab" id="nav-quest" onclick="switchTab('quest')">
-    <span class="nav-tab-icon">🗺</span>Квест
-  </button>
-  <button class="nav-tab" id="nav-ship" onclick="switchTab('ship')">
-    <span class="nav-tab-icon">🚢</span>Корабль
-  </button>
-</nav>
 
 </div>
 
