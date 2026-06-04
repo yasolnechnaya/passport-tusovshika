@@ -505,6 +505,8 @@ async function loadQuestProgress() {
   const data = await dbGet('/guests/'+key+'/quest');
   if(data) questProgress = data;
   else questProgress = {};
+  // Если квест уже открыт — перерисовываем
+  if(currentTab === 'quest') renderQuestTab();
 }
 
 // ===== МУЗЛОТО =====
@@ -640,7 +642,9 @@ function switchTab(tab) {
   } else if(tab === 'quest') {
     if(!myData) { showScreen('s-enter'); return; }
     showScreen('s-quest');
+    // Сначала рендерим с текущим прогрессом, потом подгружаем из базы
     renderQuestTab();
+    loadQuestProgress();
   } else if(tab === 'ship') {
     if(!myData) { showScreen('s-enter'); return; }
     showScreen('s-ship');
