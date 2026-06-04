@@ -423,14 +423,51 @@ function renderQuestTab(){
   const rot=ROTATION[myData.team];
   document.getElementById('team-route').innerHTML=rot.map((bar,i)=>`<div class="route-step"><div class="route-time">${BAR_TIMES[i]}</div><div class="route-icon">🍺</div><div><div class="route-name" style="color:${t.color}">${bar}</div><div class="route-desc">${BAR_DATA[bar].addr}</div></div></div>`).join('');
   const te=document.getElementById('bar-tasks');if(!te)return;
-  te.innerHTML=rot.map((bar,bi)=>{
+
+  // Определяем какие бары разблокированы
+  // Первый всегда открыт, следующий открывается только после выполнения всех заданий предыдущего
+  let html='';
+  rot.forEach((bar,bi)=>{
     const bd=BAR_DATA[bar];
     const pk='bar_'+bi;
     const pr=questProgress[pk]||[false,false,false];
     const allDone=pr.every(Boolean);
     const next=rot[bi+1]||null;
-    return`<div class="bar-card"><div class="bar-name">${bar}</div><div class="bar-addr">${bd.addr} · ${BAR_TIMES[bi]}</div>${bd.tasks.map((tk,ti)=>`<div class="task-block" style="background:${tk.bg};border:0.5px solid ${tk.border}"><div class="task-block-title" style="color:${tk.tc}">${tk.type}</div><div class="task-check" onclick="toggleQT(${bi},${ti})"><div class="task-check-box${pr[ti]?' done':''}">${pr[ti]?'✓':''}</div><div class="task-check-label${pr[ti]?' done':''}">${tk.text}</div></div></div>`).join('')}<div class="next-bar${allDone?' show':''}" id="nb_${bi}"><div class="next-bar-label">✅ ВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ!</div><div class="next-bar-name">${next||'🧀 Чиз Визард / Гоблинский пунш'}</div></div></div>`;
-  }).join('');
+
+    // Проверяем разблокирован ли этот бар
+    let unlocked = bi===0;
+    if(bi>0){
+      const prevPk='bar_'+(bi-1);
+      const prevPr=questProgress[prevPk]||[false,false,false];
+      unlocked=prevPr.every(Boolean);
+    }
+
+    if(!unlocked){
+      // Бар заблокирован — показываем только заглушку
+      html+=`<div class="bar-card" style="opacity:0.5">
+        <div class="bar-name">🔒 Бар ${bi+1}</div>
+        <div class="bar-addr">Выполни задания в предыдущем баре чтобы разблокировать</div>
+      </div>`;
+    } else {
+      html+=`<div class="bar-card">
+        <div class="bar-name">${bar}</div>
+        <div class="bar-addr">${bd.addr} · ${BAR_TIMES[bi]}</div>
+        ${bd.tasks.map((tk,ti)=>`<div class="task-block" style="background:${tk.bg};border:0.5px solid ${tk.border}">
+          <div class="task-block-title" style="color:${tk.tc}">${tk.type}</div>
+          <div class="task-check" onclick="toggleQT(${bi},${ti})">
+            <div class="task-check-box${pr[ti]?' done':''}">${pr[ti]?'✓':''}</div>
+            <div class="task-check-label${pr[ti]?' done':''}">${tk.text}</div>
+          </div>
+        </div>`).join('')}
+        <div class="next-bar${allDone?' show':''}" id="nb_${bi}">
+          <div class="next-bar-label">✅ ВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ!</div>
+          <div class="next-bar-name">${next||'🧀 Чиз Визард / Гоблинский пунш'}</div>
+          ${next?`<div style="font-size:11px;color:#1A7A40;margin-top:4px">${BAR_DATA[next].addr} · ${BAR_TIMES[bi+1]}</div>`:'<div style="font-size:11px;color:#1A7A40;margin-top:4px">Все встречаются · 19:30</div>'}
+        </div>
+      </div>`;
+    }
+  });
+  te.innerHTML=html;
 }
 
 function toggleQT(bi,ti){
