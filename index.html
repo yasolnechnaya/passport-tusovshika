@@ -195,10 +195,7 @@ body{min-height:100%;background:#f5f4f0;font-family:-apple-system,BlinkMacSystem
     <div class="route-step"><div class="route-time">22:30</div><div class="route-icon">🚢</div><div><div class="route-name">Пристань на Фонтанке</div><div class="route-desc">Посадка на корабль</div></div></div>
     <div class="route-step"><div class="route-time">23:00</div><div class="route-icon">⛵</div><div><div class="route-name">Отплытие!</div><div class="route-desc">1.5 часа по рекам и каналам СПб</div></div></div>
   </div>
-  <div class="route-card" id="team-route-card">
-    <div class="lbl">Маршрут твоей команды</div>
-    <div id="team-route"></div>
-  </div>
+  <div id="team-route" style="display:none"></div>
   <div id="bar-tasks"></div>
   <div class="bar-card">
     <div class="bar-name">⚓ Стар город</div>
@@ -421,7 +418,7 @@ function renderQuestTab(){
   if(!myData)return;
   const t=TEAMS[myData.team];
   const rot=ROTATION[myData.team];
-  document.getElementById('team-route').innerHTML=rot.map((bar,i)=>`<div class="route-step"><div class="route-time">${BAR_TIMES[i]}</div><div class="route-icon">🍺</div><div><div class="route-name" style="color:${t.color}">${bar}</div><div class="route-desc">${BAR_DATA[bar].addr}</div></div></div>`).join('');
+
   const te=document.getElementById('bar-tasks');if(!te)return;
 
   // Определяем какие бары разблокированы
