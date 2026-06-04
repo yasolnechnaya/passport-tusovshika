@@ -4,14 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Паспорт тусовщика — Birthday Weekend СПб</title>
-<meta name="description" content="Birthday Weekend 12-14 июня 2026, Санкт-Петербург">
-<meta property="og:title" content="Паспорт тусовщика 🎉">
-<meta property="og:description" content="Получи свой паспорт тусовщика — Birthday Weekend 12-14 июня, СПб">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a}
-.wrap{max-width:420px;margin:0 auto;padding:1.5rem 1rem 5rem;overflow:visible}
-.screen{display:none}.screen.active{display:block !important}
+html{height:100%}
+body{min-height:100%;background:#f5f4f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1a1a1a;padding-bottom:64px}
+.page{display:none;max-width:420px;margin:0 auto;padding:1.5rem 1rem 2rem}
+.page.active{display:block}
 .cover{border-radius:16px;padding:2.5rem 1.5rem;text-align:center;margin-bottom:1rem;background:#E8251A}
 .cover-small{font-size:11px;color:rgba(255,255,255,0.7);letter-spacing:0.12em;margin-bottom:10px}
 .cover-big{font-size:36px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:1.5rem}
@@ -20,11 +18,10 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
 .lbl{font-size:11px;color:#aaa;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:10px}
 .name-input{width:100%;font-size:18px;font-weight:500;border:none;background:transparent;color:#1a1a1a;outline:none;padding:0}
 .name-input::placeholder{color:#ccc;font-weight:400}
-.btn{width:100%;padding:14px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:600;cursor:pointer;transition:opacity 0.15s}
-.btn:hover{opacity:0.9}.btn:disabled{opacity:0.35;cursor:not-allowed}
-.btn-outline{width:100%;padding:11px;font-size:13px;color:#888;background:transparent;border:0.5px solid #ddd;border-radius:10px;cursor:pointer;margin-top:8px;transition:background 0.12s}
-.btn-outline:hover{background:#f5f4f0}
-.btn-danger{color:#E8251A;border-color:#E8251A}.btn-danger:hover{background:#FFF0EF}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:600;cursor:pointer;background:#E8251A}
+.btn:disabled{opacity:0.35;cursor:not-allowed}
+.btn-outline{width:100%;padding:11px;font-size:13px;color:#888;background:transparent;border:0.5px solid #ddd;border-radius:10px;cursor:pointer;margin-top:8px}
+.btn-danger{color:#E8251A;border-color:#E8251A}
 .admin-link{font-size:11px;color:#bbb;background:transparent;border:none;cursor:pointer;padding:6px 0;display:block;margin:8px auto 0;text-decoration:underline}
 .passport-cover{border-radius:16px;padding:1.75rem 1.5rem;margin-bottom:1rem;text-align:center}
 .pc-small{font-size:11px;letter-spacing:0.12em;opacity:0.7;margin-bottom:8px;color:#fff;text-transform:uppercase}
@@ -34,38 +31,45 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
 .pc-num{font-size:10px;opacity:0.5;color:#fff;margin-top:10px;letter-spacing:0.1em}
 .task-text{font-size:15px;color:#1a1a1a;line-height:1.6;font-weight:500}
 .prog-row{display:flex;justify-content:space-between;margin-bottom:6px}
-.prog-txt{font-size:12px;color:#888}.prog-num{font-size:12px;font-weight:600}
+.prog-txt{font-size:12px;color:#888}
+.prog-num{font-size:12px;font-weight:600}
 .prog-bar{height:3px;background:#f0eee8;border-radius:2px;margin-bottom:14px}
 .prog-fill{height:3px;border-radius:2px;transition:width 0.35s}
 .stamps-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.stamp{border:0.5px solid #e0ddd6;border-radius:12px;padding:12px 8px;cursor:pointer;transition:all 0.12s;text-align:center;background:#fff;-webkit-tap-highlight-color:transparent}
-.stamp:active{transform:scale(0.97)}
-.stamp-icon{width:40px;height:40px;border-radius:50%;border:1.5px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;transition:all 0.12s;font-size:18px}
+.stamp{border:0.5px solid #e0ddd6;border-radius:12px;padding:12px 8px;cursor:pointer;text-align:center;background:#fff}
+.stamp-icon{width:40px;height:40px;border-radius:50%;border:1.5px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:18px}
 .stamp-text{font-size:11px;color:#666;line-height:1.35}
 .stamp-time{font-size:10px;color:#bbb;margin-top:4px;min-height:14px}
 .reward-card{border-radius:16px;padding:1rem 1.25rem;margin-bottom:1rem;text-align:center;display:none;border:0.5px solid}
 .reward-card.show{display:block}
 .reward-text{font-size:15px;font-weight:600}
+.save-ind{font-size:11px;color:#aaa;text-align:center;padding:4px 0;min-height:20px}
+.save-ind.saving{color:#C07D0A}
+.save-ind.saved{color:#1A7A40}
 .team-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1rem}
 .tstat{background:#f8f7f4;border-radius:10px;padding:12px 14px}
 .tstat-name{font-size:12px;color:#888;margin-bottom:4px}
 .tstat-count{font-size:22px;font-weight:700}
 .guest-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid #f0eee8;font-size:14px}
 .guest-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.guest-title{font-size:12px;color:#aaa}
-.loading{text-align:center;padding:3rem 1rem;color:#aaa;font-size:14px}
-.save-indicator{font-size:11px;color:#aaa;text-align:center;padding:4px 0;min-height:20px}
-.save-indicator.saving{color:#C07D0A}
-.save-indicator.saved{color:#1A7A40}
-
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:0.5px solid #e0ddd6;display:none;z-index:100;max-width:100%}
-.screen-inner{max-width:420px;margin:0 auto;padding:1.5rem 1rem 2rem}
-.nav-tab{flex:1;padding:12px 8px 16px;text-align:center;cursor:pointer;font-size:11px;color:#aaa;transition:color 0.15s;border:none;background:transparent;letter-spacing:0.04em}
-.nav-tab.active{color:#E8251A;font-weight:600}
-.nav-tab-icon{font-size:20px;display:block;margin-bottom:2px}
-.wrap{padding-bottom:80px}
-
-.nav-tab-icon{font-size:20px;display:block;margin-bottom:2px}
+.guest-sub{font-size:12px;color:#aaa}
+.loading-txt{text-align:center;padding:3rem 1rem;color:#aaa;font-size:14px}
+/* Музлото */
+.mz-header{background:#0D0D0D;border-radius:16px;padding:1.25rem;margin-bottom:1rem;text-align:center}
+.mz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.mz-cell{border-radius:6px;padding:4px 2px;cursor:pointer;text-align:center;border:0.5px solid #e0ddd6;background:#fafafa;min-height:52px;display:flex;flex-direction:column;justify-content:center}
+.mz-cell.checked{border-color:#FF6600;background:#1A0A00}
+.mz-cell.center{border-color:#FFD700;background:#FF4500}
+.mz-num{font-size:8px;color:#ccc;margin-bottom:1px}
+.mz-cell.checked .mz-num{color:#FF8844}
+.mz-cell.center .mz-num{color:#FFD700}
+.mz-song{font-size:8px;font-weight:600;color:#333;line-height:1.2}
+.mz-cell.checked .mz-song{color:#FFCC44}
+.mz-cell.center .mz-song{color:#FFD700}
+.mz-artist{font-size:7px;color:#aaa;margin-top:1px;line-height:1.1}
+.mz-cell.checked .mz-artist{color:#FF8844}
+.mz-cell.center .mz-artist{color:#FFD700}
+/* Квест */
 .quest-header{background:#1a1a2e;border-radius:16px;padding:1.25rem;margin-bottom:1rem;text-align:center}
 .quest-title{font-size:20px;font-weight:700;color:#FFD700;margin-bottom:4px}
 .quest-sub{font-size:11px;color:#aaa;letter-spacing:0.08em}
@@ -82,35 +86,32 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
 .task-block{border-radius:10px;padding:10px 12px;margin-bottom:8px}
 .task-block-title{font-size:10px;font-weight:600;letter-spacing:0.06em;margin-bottom:6px;text-transform:uppercase}
 .task-block-text{font-size:13px;line-height:1.5;color:#1a1a1a}
-.unlock-btn{width:100%;padding:11px;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;margin-top:10px;transition:opacity 0.15s}
-.unlock-btn:disabled{opacity:0.4;cursor:not-allowed}
+.task-check{display:flex;align-items:flex-start;gap:8px;padding:4px 0;cursor:pointer}
+.task-check-box{width:18px;height:18px;border-radius:4px;border:1.5px solid #ddd;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:11px}
+.task-check-box.done{background:#1A7A40;border-color:#1A7A40;color:#fff}
+.task-check-label{font-size:13px;color:#1a1a1a;line-height:1.4}
+.task-check-label.done{color:#aaa;text-decoration:line-through}
 .next-bar{display:none;margin-top:10px;padding:12px;background:#E8F5E9;border-radius:10px;border:0.5px solid #1A7A40;text-align:center}
 .next-bar.show{display:block}
 .next-bar-label{font-size:11px;color:#1A7A40;letter-spacing:0.06em;margin-bottom:4px}
 .next-bar-name{font-size:16px;font-weight:700;color:#1A7A40}
-.task-check{display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer}
-.task-check-box{width:18px;height:18px;border-radius:4px;border:1.5px solid #ddd;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.12s}
-.task-check-box.done{background:#1A7A40;border-color:#1A7A40;color:#fff}
-.task-check-label{font-size:13px;color:#1a1a1a;line-height:1.4}
-.task-check.done .task-check-label{color:#aaa;text-decoration:line-through}
+/* Корабль */
 .ship-card{background:#0a1628;border-radius:16px;padding:2rem 1.25rem;text-align:center;margin-bottom:1rem}
 .ship-emoji{font-size:48px;margin-bottom:12px}
 .ship-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
 .ship-sub{font-size:13px;color:#aaa;line-height:1.6}
-
-#s-muzloto, #s-quest, #s-ship {
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 5rem;
-  background: #f5f4f0;
-  min-height: 100vh;
-}
+/* Навигация */
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:0.5px solid #e0ddd6;display:none;z-index:100}
+.nav.show{display:flex}
+.nav-tab{flex:1;padding:10px 8px 14px;text-align:center;cursor:pointer;font-size:11px;color:#aaa;border:none;background:transparent;letter-spacing:0.04em}
+.nav-tab.active{color:#E8251A;font-weight:600}
+.nav-tab-icon{font-size:20px;display:block;margin-bottom:2px}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<div id="s-enter" class="screen active">
+<!-- ПАСПОРТ: ВХОД -->
+<div id="p-enter" class="page active">
   <div class="cover">
     <div class="cover-small">Birthday Weekend · СПб</div>
     <div class="cover-big">ПАСПОРТ<br>ТУСОВЩИКА</div>
@@ -118,12 +119,13 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
   </div>
   <div class="card">
     <div class="lbl">Как тебя зовут?</div>
-    <input class="name-input" id="name-input" placeholder="Введи своё имя" maxlength="24" autocomplete="off" inputmode="text">
+    <input class="name-input" id="name-input" placeholder="Введи своё имя" maxlength="24" autocomplete="off">
   </div>
-  <button class="btn" id="btn-start" onclick="startPassport()" disabled style="background:#E8251A">Получить паспорт 🎉</button>
+  <button class="btn" id="btn-start" onclick="startPassport()" disabled>Получить паспорт 🎉</button>
 </div>
 
-<div id="s-passport" class="screen">
+<!-- ПАСПОРТ: ГЛАВНАЯ -->
+<div id="p-passport" class="page">
   <div class="passport-cover" id="pc-cover">
     <div class="pc-small">Паспорт тусовщика</div>
     <div class="pc-name" id="pc-name">—</div>
@@ -137,171 +139,89 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
   </div>
   <div class="card">
     <div class="lbl">Печати</div>
-    <div class="prog-row">
-      <span class="prog-txt">Собрано</span>
-      <span class="prog-num" id="scount" style="color:#E8251A">0 / 10</span>
-    </div>
-    <div class="prog-bar"><div class="prog-fill" id="sfill" style="width:0%;background:#E8251A"></div></div>
+    <div class="prog-row"><span class="prog-txt">Собрано</span><span class="prog-num" id="s-count">0 / 10</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="s-fill" style="width:0%"></div></div>
     <div class="stamps-grid" id="stamps-grid"></div>
   </div>
-  <div class="reward-card" id="reward">
-    <div class="reward-text" id="reward-text">🏆 Все 10 печатей — ты легенда праздника!</div>
-  </div>
-  <div class="save-indicator" id="save-indicator"></div>
-  <button class="btn-outline" onclick="resetPassport()">Сменить имя</button>
-  <button class="admin-link" onclick="showAdmin()">панель организатора</button>
+  <div class="reward-card" id="reward"><div class="reward-text" id="reward-text">🏆 Все 10 печатей!</div></div>
+  <div class="save-ind" id="save-ind"></div>
+  <button class="btn-outline" onclick="logout()">Сменить имя</button>
+  <button class="admin-link" onclick="goAdmin()">панель организатора</button>
 </div>
 
-<div id="s-loading" class="screen">
-  <div class="loading" id="loading-text">Загружаем твой паспорт...</div>
+<!-- ПАСПОРТ: ЗАГРУЗКА -->
+<div id="p-loading" class="page">
+  <div class="loading-txt">Загружаем твой паспорт...</div>
 </div>
 
-<div id="s-admin" class="screen">
-  <div class="card">
-    <div class="lbl">Распределение по командам</div>
-    <div class="team-stats" id="team-stats"></div>
-  </div>
-  <div class="card">
-    <div class="lbl">Зарегистрированные гости</div>
-    <div id="guest-list"></div>
-  </div>
-  <button class="btn-outline" onclick="showPassport()">← Назад к паспорту</button>
-  <button class="btn-outline btn-danger" onclick="clearAll()" style="margin-top:8px">Сбросить всех гостей</button>
+<!-- ПАСПОРТ: АДМИН -->
+<div id="p-admin" class="page">
+  <div class="card"><div class="lbl">По командам</div><div class="team-stats" id="team-stats"></div></div>
+  <div class="card"><div class="lbl">Гости</div><div id="guest-list"></div></div>
+  <button class="btn-outline" onclick="goPage('p-passport')">← Назад</button>
+  <button class="btn-outline btn-danger" onclick="clearAll()" style="margin-top:8px">Сбросить всех</button>
 </div>
 
-
-
-</div>
-
-<nav class="bottom-nav" id="bottom-nav">
-  <button class="nav-tab active" id="nav-passport" onclick="switchTab('passport')">
-    <span class="nav-tab-icon">🪪</span>Паспорт
-  </button>
-  <button class="nav-tab" id="nav-muzloto" onclick="switchTab('muzloto')">
-    <span class="nav-tab-icon">🎵</span>Музлото
-  </button>
-  <button class="nav-tab" id="nav-quest" onclick="switchTab('quest')">
-    <span class="nav-tab-icon">🗺</span>Квест
-  </button>
-  <button class="nav-tab" id="nav-ship" onclick="switchTab('ship')">
-    <span class="nav-tab-icon">🚢</span>Корабль
-  </button>
-</nav>
-
-<div id="s-muzloto" class="screen">
-  <div style="background:#0D0D0D;border-radius:16px;padding:1.25rem;margin-bottom:1rem;text-align:center">
+<!-- МУЗЛОТО -->
+<div id="p-muzloto" class="page">
+  <div class="mz-header">
     <div style="font-size:11px;color:#FF8844;letter-spacing:0.1em;margin-bottom:4px">BIRTHDAY WEEKEND · СПБ</div>
     <div style="font-size:20px;font-weight:700;color:#FF6600;margin-bottom:2px">МУЗЫКАЛЬНОЕ ЛОТО</div>
     <div style="font-size:11px;color:#FF8844">12 июня · Дача</div>
   </div>
-  <div style="background:#fff;border:0.5px solid #e0ddd6;border-radius:16px;padding:1rem;margin-bottom:1rem">
-    <div class="prog-row">
-      <span class="prog-txt">Отмечено</span>
-      <span class="prog-num" id="mz-count" style="color:#FF6600">0 / 25</span>
-    </div>
+  <div class="card">
+    <div class="prog-row"><span class="prog-txt">Отмечено</span><span class="prog-num" id="mz-count" style="color:#FF6600">0 / 25</span></div>
     <div class="prog-bar"><div class="prog-fill" id="mz-fill" style="width:0%;background:#FF6600"></div></div>
     <div style="font-size:11px;color:#aaa;margin-bottom:10px">Тапни на клетку когда услышишь песню</div>
-    <div id="mz-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:3px"></div>
+    <div class="mz-grid" id="mz-grid"></div>
   </div>
   <div id="mz-bingo" style="display:none;background:#FFF0EF;border:0.5px solid #E8251A;border-radius:16px;padding:1rem;text-align:center;margin-bottom:1rem">
-    <div style="font-size:18px;font-weight:700;color:#E8251A">🎉 БИНГО!</div>
-    <div style="font-size:13px;color:#993C1D;margin-top:4px">Ты собрал линию — кричи ЛОТО!</div>
+    <div style="font-size:18px;font-weight:700;color:#E8251A">🎉 БИНГО! Кричи ЛОТО!</div>
   </div>
+</div>
 
-
-<div id="s-quest" class="screen">
+<!-- КВЕСТ -->
+<div id="p-quest" class="page">
   <div class="quest-header">
     <div class="quest-title">🗺 БАР-КВЕСТ</div>
     <div class="quest-sub">13 ИЮНЯ · ЦЕНТР СПБ</div>
   </div>
-
-  <!-- Маршрут -->
   <div class="route-card">
     <div class="lbl">Маршрут дня</div>
-    <div class="route-step">
-      <div class="route-time">15:30</div>
-      <div class="route-icon">⚓</div>
-      <div><div class="route-name">Стар город</div><div class="route-desc">Старт · все вместе · еда · получаем задания</div></div>
-    </div>
-    <div class="route-step">
-      <div class="route-time">17:00</div>
-      <div class="route-icon">🍺</div>
-      <div><div class="route-name">Квест по барам</div><div class="route-desc">Команды расходятся · 3 бара · 45 мин каждый</div></div>
-    </div>
-    <div class="route-step">
-      <div class="route-time">19:30</div>
-      <div class="route-icon">🧀</div>
-      <div><div class="route-name">Чиз Визард / Гоблинский пунш</div><div class="route-desc">Все встречаются · еда · считаем очки</div></div>
-    </div>
-    <div class="route-step">
-      <div class="route-time">21:00</div>
-      <div class="route-icon">🏴‍☠️</div>
-      <div><div class="route-name">Ворон и Ворон / Медоварус</div><div class="route-desc">Финальный бар · итоги квеста · победители</div></div>
-    </div>
-    <div class="route-step">
-      <div class="route-time">22:30</div>
-      <div class="route-icon">🚢</div>
-      <div><div class="route-name">Пристань на Фонтанке</div><div class="route-desc">Посадка на корабль</div></div>
-    </div>
-    <div class="route-step">
-      <div class="route-time">23:00</div>
-      <div class="route-icon">⛵</div>
-      <div><div class="route-name">Отплытие!</div><div class="route-desc">1.5 часа по рекам и каналам СПб</div></div>
-    </div>
+    <div class="route-step"><div class="route-time">15:30</div><div class="route-icon">⚓</div><div><div class="route-name">Стар город</div><div class="route-desc">Старт · все вместе · еда · задания</div></div></div>
+    <div class="route-step"><div class="route-time">17:00</div><div class="route-icon">🍺</div><div><div class="route-name">Квест по барам</div><div class="route-desc">Команды расходятся · 3 бара · 45 мин каждый</div></div></div>
+    <div class="route-step"><div class="route-time">19:30</div><div class="route-icon">🧀</div><div><div class="route-name">Чиз Визард / Гоблинский пунш</div><div class="route-desc">Все встречаются · еда · считаем очки</div></div></div>
+    <div class="route-step"><div class="route-time">21:00</div><div class="route-icon">🏴‍☠️</div><div><div class="route-name">Ворон и Ворон / Медоварус</div><div class="route-desc">Финальный бар · итоги квеста</div></div></div>
+    <div class="route-step"><div class="route-time">22:30</div><div class="route-icon">🚢</div><div><div class="route-name">Пристань на Фонтанке</div><div class="route-desc">Посадка на корабль</div></div></div>
+    <div class="route-step"><div class="route-time">23:00</div><div class="route-icon">⛵</div><div><div class="route-name">Отплытие!</div><div class="route-desc">1.5 часа по рекам и каналам СПб</div></div></div>
   </div>
-
-  <!-- Твой маршрут по барам -->
   <div class="route-card" id="team-route-card">
     <div class="lbl">Маршрут твоей команды</div>
     <div id="team-route"></div>
   </div>
-
-  <!-- Задания баров -->
   <div id="bar-tasks"></div>
-
-  <!-- Общие точки -->
   <div class="bar-card">
     <div class="bar-name">⚓ Стар город</div>
     <div class="bar-addr">Старт вечера</div>
-    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700">
-      <div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div>
-      <div class="task-block-text">Сделайте командное фото в стиле «обложка альбома» — придумайте название группы, позу и настроение. Лучшая обложка получает бонусный балл.</div>
-    </div>
-    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844">
-      <div class="task-block-title" style="color:#E65100">😂 Весёлое</div>
-      <div class="task-block-text">За 3 минуты придумайте и исполните кричалку своей команды — с движениями. Все кричалки исполняются перед всеми перед расходом по барам.</div>
-    </div>
+    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700"><div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div><div class="task-block-text">Сделайте командное фото в стиле «обложка альбома» — придумайте название группы, позу и настроение.</div></div>
+    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844"><div class="task-block-title" style="color:#E65100">😂 Весёлое</div><div class="task-block-text">За 3 минуты придумайте и исполните кричалку своей команды с движениями — перед всеми гостями.</div></div>
   </div>
-
   <div class="bar-card">
     <div class="bar-name">🧀 Чиз Визард / Гоблинский пунш</div>
-    <div class="bar-addr">Общая точка · встреча всех команд</div>
-    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700">
-      <div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div>
-      <div class="task-block-text">Сделайте фото «до и после» — покажите как выглядела команда в начале дня и как выглядит сейчас. Коллаж скидывается в общий чат.</div>
-    </div>
-    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844">
-      <div class="task-block-title" style="color:#E65100">😂 Весёлое</div>
-      <div class="task-block-text">Командный турнир по «Крокодилу» — каждая команда показывает одно слово: «похмелье», «последний глоток», «бармен-философ», «танцпол в 3 ночи», «утренний звонок маме».</div>
-    </div>
+    <div class="bar-addr">Общая точка · все встречаются</div>
+    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700"><div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div><div class="task-block-text">Сделайте фото «до и после» — как выглядела команда в начале дня и как выглядит сейчас.</div></div>
+    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844"><div class="task-block-title" style="color:#E65100">😂 Весёлое</div><div class="task-block-text">Крокодил — каждая команда показывает одно слово: «похмелье», «последний глоток», «бармен-философ», «танцпол в 3 ночи», «утренний звонок маме».</div></div>
   </div>
-
   <div class="bar-card">
     <div class="bar-name">🏴‍☠️ Ворон и Ворон / Медоварус</div>
     <div class="bar-addr">Финальный бар · Мучной переулок</div>
-    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700">
-      <div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div>
-      <div class="task-block-text">Воссоздайте стартовое фото «обложка альбома» из Стар города — с учётом что прошло полдня. Сравниваем в общем чате.</div>
-    </div>
-    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844">
-      <div class="task-block-title" style="color:#E65100">😂 Весёлое</div>
-      <div class="task-block-text">Каждая команда готовит тост с упоминанием самого смешного момента дня. Все тосты произносятся перед выходом на корабль.</div>
-    </div>
+    <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700"><div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div><div class="task-block-text">Воссоздайте стартовое фото «обложка альбома» — с учётом что прошло полдня.</div></div>
+    <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844"><div class="task-block-title" style="color:#E65100">😂 Весёлое</div><div class="task-block-text">Каждая команда произносит тост с упоминанием самого смешного момента дня — перед финальным выходом на корабль.</div></div>
   </div>
 </div>
 
-
-<div id="s-ship" class="screen">
+<!-- КОРАБЛЬ -->
+<div id="p-ship" class="page">
   <div class="ship-card">
     <div class="ship-emoji">🚢</div>
     <div class="ship-title">Корабль</div>
@@ -309,376 +229,15 @@ html,body{min-height:100vh;background:#f5f4f0;font-family:-apple-system,BlinkMac
   </div>
 </div>
 
-
-</div>
+<!-- НАВИГАЦИЯ -->
+<nav class="nav" id="nav">
+  <button class="nav-tab active" id="nav-passport" onclick="switchTab('passport')"><span class="nav-tab-icon">🪪</span>Паспорт</button>
+  <button class="nav-tab" id="nav-muzloto" onclick="switchTab('muzloto')"><span class="nav-tab-icon">🎵</span>Музлото</button>
+  <button class="nav-tab" id="nav-quest" onclick="switchTab('quest')"><span class="nav-tab-icon">🗺</span>Квест</button>
+  <button class="nav-tab" id="nav-ship" onclick="switchTab('ship')"><span class="nav-tab-icon">🚢</span>Корабль</button>
+</nav>
 
 <script>
-const MUZLOTO_TRACKS = [
-  [1,"Бонд с кнопкой","Кухни"],
-  [2,"Баста","Сансара"],
-  [3,"Танцы Минус","Половинка"],
-  [4,"Найк Борзов","Верхом на звезде"],
-  [5,"Ляпис Трубецкой","Капитал"],
-  [6,"Элизиум","Острова"],
-  [7,"Гудтаймс","Видение"],
-  [8,"The Hatters","Да, со мной не просто"],
-  [9,"Rammstein","Du Hast"],
-  [10,"GAYAZOVS BROTHERS","Малиновая лада"],
-  [11,"ARTIK&ASTI","Грустный дэнс"],
-  [12,"Мас Корж","Жить в кайф"],
-  [13,"Чиж & Co","О любви"],
-  [14,"Ed Sheeran","Shape of You"],
-  [15,"O-zone","Dragostea Din Tei"],
-  [16,"Mark Ronson","Uptown Funk"],
-  [17,"Michel Telo","Ai Se Eu Te Pego"],
-  [18,"Zaz","Je veux"],
-  [19,"Imagine Dragons","Thunder"],
-  [20,"Maroon 5","Moves Like Jagger"],
-  [21,"Cristina Aguilera","Lady Marmalade"],
-  [22,"IOWA","Улыбайся"],
-  [23,"Отпетые мошенники","Люби меня, люби"],
-  [24,"CREAM SODA","Никаких больше вечеринок"],
-  [25,"Антон Токарев","Седьмой лепесток"],
-  [26,"Гости из будущего","Беги от меня"],
-  [27,"Земфира","Ромашки"],
-  [28,"Женя Трофимов","Самолёты"],
-  [29,"Ray Charles","Hit The Road Jack"],
-  [30,"Bee Gees","Stayin Alive"],
-  [31,"Чичерина","Ту-лу-ла"],
-  [32,"Queen","I Want To Break Free"],
-  [33,"БАНДЭРОС","Про красивую жизнь"],
-  [34,"50 Cent","Candy Shop"],
-  [35,"Timbaland","Give It To Me"],
-  [36,"Валерий Меладзе","Салют, Вера"],
-  [37,"ВИА ГРА","Попытка No5"],
-  [38,"Led Zeppelin","Immigrant Song"],
-  [39,"Pink Floyd","Another Brick In The Wall"],
-  [40,"Bon Jovi","Its My Life"],
-  [41,"A-ha","Take On Me"],
-  [42,"KREC","Нежность"],
-  [43,"Akon, Eminem","Smack That"],
-  [44,"Backstreet Boys","Show Me The Meaning"],
-  [45,"Black Eyed Peas","Lets Get It Started"],
-  [46,"Britney Spears","Ooops I Did It Again"],
-  [47,"Green Day","Boulevard of Broken Dreams"],
-  [48,"Blink-182","All The Small Things"],
-  [49,"Дискотека Авария","Если хочешь остаться"],
-  [50,"Uma2rman","Ночной дозор"],
-  [51,"Леонид Агутин","Хоп хэй лала лэй"],
-  [52,"t.A.T.u.","Нас не догонят"],
-  [53,"Кино","Перемен"],
-  [54,"Би-2","Варвара"],
-  [55,"Руки вверх!","Крошка моя"],
-  [56,"Александр Иванов","Бледный бармен"],
-  [57,"Benny Benassi","Satisfaction"],
-  [58,"Tarkan","Shikidim"],
-  [59,"Gloria Gaynor","I Will Survive"],
-  [60,"Ленинград","WWW"],
-  [61,"Пропаганда","Мелом"],
-  [62,"Guano Apes","Open Your Eyes"],
-  [63,"Nirvana","Smells Like Teen Spirit"],
-  [64,"The Offspring","Pretty Fly"],
-  [65,"No Doubt","Dont Speak"],
-  [66,"The Prodigy","Smack My Bitch Up"],
-  [67,"Bloodhound Gang","The Bad Touch"],
-  [68,"Сектор Газа","Лирика"],
-  [69,"Сплин","Орбит без сахара"],
-  [70,"Смысловые галлюцинации","Вечно молодой"]
-];
-const MUZLOTO_CENTER = [71,"Аллегрова","С днём рождения"];
-
-
-// ===== КВЕСТ =====
-const ROTATION = {
-  0: ['Тесла','Dr. Moro','Хоровод'],       // Красные
-  1: ['Dr. Moro','Хоровод','Тесла'],        // Жёлтые
-  2: ['Хоровод','Тесла','Dr. Moro'],        // Зелёные
-  3: ['Тесла','Хоровод','Dr. Moro'],        // Синие
-  4: ['Dr. Moro','Тесла','Хоровод'],        // Фиолетовые
-};
-
-const BAR_TIMES = ['17:00','17:45','18:30'];
-
-const BAR_DATA = {
-  'Тесла': {
-    addr: 'ул. Рубинштейна, 30',
-    color: '#1a1a2e',
-    light: '#E8EAF6',
-    accent: '#5C6BC0',
-    tasks: [
-      {type:'🔍 Про бар', text:'В Тесла баре есть диджейский пульт в виде стимпанкового органа из труб. Сосчитайте количество труб на пульте и запишите число — это ключ к следующей локации.', bg:'#E8EAF6', border:'#5C6BC0', tc:'#283593'},
-      {type:'🧠 Про именинников', text:'Раунд 1 — «Кто это сделал?» (вопросы 1-7). Ведущий в команде — именинник. Правильный ответ на все 7 вопросов открывает следующий бар.', bg:'#EDE7F6', border:'#7E57C2', tc:'#4527A0'},
-      {type:'📸 Интерактив', text:'Вся команда делает фото в образе персонажей стимпанка — используйте реквизит бара, очки, шляпы. Лучшее фото в общий чат!', bg:'#E3F2FD', border:'#42A5F5', tc:'#1565C0'},
-    ]
-  },
-  'Dr. Moro': {
-    addr: 'ул. Жуковского, 15',
-    color: '#1a0a00',
-    light: '#FBE9E7',
-    accent: '#BF360C',
-    tasks: [
-      {type:'🔍 Про бар', text:'В баре есть клетка. Кто или что в ней находится прямо сейчас? Опишите подробно — это пароль для получения следующей локации у именинника.', bg:'#FBE9E7', border:'#BF360C', tc:'#BF360C'},
-      {type:'🧠 Про именинников', text:'Раунд 2 — «Угадай кого» (вопросы 1-7). Именинник ведёт, команда отвечает. Все 7 правильно — открывается следующий бар.', bg:'#FFF3E0', border:'#FF8F00', tc:'#E65100'},
-      {type:'📸 Интерактив', text:'Уговорите бармена сказать на камеру поздравление именинникам на любом иностранном языке. Чем экзотичнее язык — тем больше баллов!', bg:'#F3E5F5', border:'#AB47BC', tc:'#6A1B9A'},
-    ]
-  },
-  'Хоровод': {
-    addr: 'ул. Некрасова, 58',
-    color: '#0a1a0a',
-    light: '#E8F5E9',
-    accent: '#2E7D32',
-    tasks: [
-      {type:'🔍 Про бар', text:'Хоровод находится в историческом здании. Найдите на фасаде или внутри любую дату, связанную со зданием, и расскажите что произошло в этот год в России.', bg:'#E8F5E9', border:'#2E7D32', tc:'#1B5E20'},
-      {type:'🧠 Про именинников', text:'Раунд 3 — Финал на скорость (вопросы 1-5). Кто первым кричит правильный ответ — получает балл. Именинник ведёт.', bg:'#F1F8E9', border:'#558B2F', tc:'#33691E'},
-      {type:'📸 Интерактив', text:'Организуйте живой хоровод прямо в баре — все члены команды плюс минимум 2 случайных гостя бара. Снять на видео минимум 10 секунд!', bg:'#E0F7FA', border:'#00897B', tc:'#004D40'},
-    ]
-  },
-};
-
-// Прогресс заданий
-let questProgress = {};
-let questSaveTimer = null;
-
-function renderQuestTab() {
-  if(!myData) { console.log('renderQuestTab: no myData'); return; }
-  const team = TEAMS[myData.team];
-  const rotation = ROTATION[myData.team];
-  console.log('renderQuestTab: team=', myData.team, 'rotation=', rotation);
-
-  // Маршрут команды
-  const routeEl = document.getElementById('team-route');
-  console.log('routeEl:', routeEl);
-  if(routeEl) {
-    routeEl.innerHTML = rotation.map((bar, i) => `
-      <div class="route-step">
-        <div class="route-time">${BAR_TIMES[i]}</div>
-        <div class="route-icon">🍺</div>
-        <div>
-          <div class="route-name" style="color:${team.color}">${bar}</div>
-          <div class="route-desc">${BAR_DATA[bar].addr}</div>
-        </div>
-      </div>`).join('');
-  }
-
-  // Задания баров
-  const tasksEl = document.getElementById('bar-tasks');
-  console.log('tasksEl:', tasksEl);
-  if(tasksEl) {
-    tasksEl.innerHTML = rotation.map((bar, barIdx) => {
-      const bd = BAR_DATA[bar];
-      const nextBar = rotation[barIdx+1] || null;
-      const progressKey = 'bar_'+barIdx;
-      const prog = questProgress[progressKey] || [false,false,false];
-      const allDone = prog.every(Boolean);
-
-      return `<div class="bar-card">
-        <div class="bar-name">${bar}</div>
-        <div class="bar-addr">${bd.addr} · ${BAR_TIMES[barIdx]}</div>
-        ${bd.tasks.map((t,ti) => `
-          <div class="task-block" style="background:${t.bg};border:0.5px solid ${t.border}">
-            <div class="task-block-title" style="color:${t.tc}">${t.type}</div>
-            <div class="task-check" onclick="toggleQuestTask(${barIdx},${ti})">
-              <div class="task-check-box ${prog[ti]?'done':''}">${prog[ti]?'✓':''}</div>
-              <div class="task-check-label ${prog[ti]?'done':''}">${t.text}</div>
-            </div>
-          </div>`).join('')}
-        <div class="next-bar ${allDone?'show':''}" id="nextbar_${barIdx}">
-          <div class="next-bar-label">✅ ВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ · СЛЕДУЮЩИЙ БАР:</div>
-          <div class="next-bar-name">${nextBar || '🧀 Чиз Визард / Гоблинский пунш'}</div>
-          ${nextBar ? '<div style="font-size:11px;color:#1A7A40;margin-top:4px">'+BAR_DATA[nextBar].addr+'</div>' : '<div style="font-size:11px;color:#1A7A40;margin-top:4px">Все встречаются · 19:30</div>'}
-        </div>
-      </div>`;
-    }).join('');
-  }
-}
-
-function toggleQuestTask(barIdx, taskIdx) {
-  const key = 'bar_'+barIdx;
-  if(!questProgress[key]) questProgress[key] = [false,false,false];
-  questProgress[key][taskIdx] = !questProgress[key][taskIdx];
-  const allDone = questProgress[key].every(Boolean);
-  const nextBarEl = document.getElementById('nextbar_'+barIdx);
-  if(nextBarEl) nextBarEl.classList.toggle('show', allDone);
-  // Обновляем чекбокс
-  renderQuestTab();
-  scheduleQuestSave();
-}
-
-function scheduleQuestSave() {
-  if(questSaveTimer) clearTimeout(questSaveTimer);
-  questSaveTimer = setTimeout(saveQuestProgress, 1000);
-}
-
-async function saveQuestProgress() {
-  if(!myData) return;
-  const key = nameKey(myData.name);
-  await dbSet('/guests/'+key+'/quest', questProgress);
-}
-
-async function loadQuestProgress() {
-  if(!myData) return;
-  const key = nameKey(myData.name);
-  const data = await dbGet('/guests/'+key+'/quest');
-  if(data) questProgress = data;
-  else questProgress = {};
-  // Перерисовываем с актуальным прогрессом
-  if(currentTab === 'quest') {
-    const tasksEl2 = document.getElementById('bar-tasks');
-    if(tasksEl2) renderQuestTab();
-  }
-}
-
-// ===== МУЗЛОТО =====
-let mzState = new Array(25).fill(false);
-let mzCard = [];
-let mzSaveTimer = null;
-
-function hashForCard(name) {
-  let h = 0;
-  const s = name + '_muzloto';
-  for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}
-  return Math.abs(h);
-}
-
-function generateCard(name) {
-  const h = hashForCard(name);
-  const pool = [...MUZLOTO_TRACKS];
-  // Перемешиваем на основе имени
-  for(let i=pool.length-1;i>0;i--){
-    const j=Math.abs((h*(i+1))^(h>>3))%(i+1);
-    [pool[i],pool[j]]=[pool[j],pool[i]];
-  }
-  const selected = pool.slice(0,24);
-  // Вставляем Аллегрову в центр (позиция 12)
-  return [...selected.slice(0,12), MUZLOTO_CENTER, ...selected.slice(12)];
-}
-
-function renderMzGrid() {
-  const grid = document.getElementById('mz-grid');
-  if(!grid) return;
-  grid.innerHTML = '';
-  mzCard.forEach((t, i) => {
-    const isCenter = i === 12;
-    const checked = mzState[i];
-    const cell = document.createElement('div');
-    cell.style.cssText = `
-      border-radius:6px;padding:4px 2px;cursor:pointer;text-align:center;
-      border:0.5px solid ${checked?(isCenter?'#FFD700':'#FF6600'):'#e0ddd6'};
-      background:${checked?(isCenter?'#FF4500':'#1A0A00'):'#fafafa'};
-      min-height:52px;display:flex;flex-direction:column;justify-content:center;
-      -webkit-tap-highlight-color:transparent;
-    `;
-    cell.onclick = () => toggleMzCell(i);
-    const num = document.createElement('div');
-    num.style.cssText = `font-size:8px;color:${checked?'#FF8844':'#ccc'};margin-bottom:1px;`;
-    num.textContent = isCenter ? '★' : '#'+t[0];
-    const song = document.createElement('div');
-    song.style.cssText = `font-size:8px;font-weight:600;color:${checked?(isCenter?'#FFD700':'#FFCC44'):'#333'};line-height:1.2;`;
-    song.textContent = t[2].length > 14 ? t[2].slice(0,13)+'…' : t[2];
-    const artist = document.createElement('div');
-    artist.style.cssText = `font-size:7px;color:${checked?'#FF8844':'#aaa'};margin-top:1px;line-height:1.1;`;
-    artist.textContent = t[1].split(',')[0].slice(0,12);
-    cell.appendChild(num);
-    cell.appendChild(song);
-    cell.appendChild(artist);
-    grid.appendChild(cell);
-  });
-  checkBingo();
-}
-
-function toggleMzCell(i) {
-  mzState[i] = !mzState[i];
-  renderMzGrid();
-  updateMzProgress();
-  scheduleMzSave();
-}
-
-function updateMzProgress() {
-  const done = mzState.filter(Boolean).length;
-  const el = document.getElementById('mz-count');
-  const fill = document.getElementById('mz-fill');
-  if(el) el.textContent = done + ' / 25';
-  if(fill) fill.style.width = Math.round(done/25*100) + '%';
-}
-
-function checkBingo() {
-  const lines = [
-    [0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],
-    [0,5,10,15,20],[1,6,11,16,21],[2,7,12,17,22],[3,8,13,18,23],[4,9,14,19,24],
-    [0,6,12,18,24],[4,8,12,16,20]
-  ];
-  const hasBingo = lines.some(line => line.every(i => mzState[i]));
-  const el = document.getElementById('mz-bingo');
-  if(el) el.style.display = hasBingo ? 'block' : 'none';
-}
-
-function scheduleMzSave() {
-  if(mzSaveTimer) clearTimeout(mzSaveTimer);
-  mzSaveTimer = setTimeout(saveMzProgress, 1000);
-}
-
-async function saveMzProgress() {
-  if(!myData) return;
-  const key = nameKey(myData.name);
-  await dbSet('/guests/'+key+'/muzloto', {state: mzState});
-}
-
-async function loadMzProgress() {
-  if(!myData) return;
-  const key = nameKey(myData.name);
-  const data = await dbGet('/guests/'+key+'/muzloto');
-  if(data && data.state) {
-    mzState = data.state;
-  } else {
-    mzState = new Array(25).fill(false);
-  }
-  mzCard = generateCard(myData.name);
-  renderMzGrid();
-  updateMzProgress();
-}
-
-// ===== НАВИГАЦИЯ =====
-let currentTab = 'passport';
-
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  const navEl = document.getElementById('nav-'+tab);
-  if(navEl) navEl.classList.add('active');
-
-  ['s-muzloto','s-quest','s-ship'].forEach(id => {
-    const el = document.getElementById(id);
-    if(el) el.classList.remove('active');
-  });
-
-  if(tab === 'passport') {
-    if(myData) showScreen('s-passport');
-    else showScreen('s-enter');
-  } else if(tab === 'muzloto') {
-    if(!myData) { showScreen('s-enter'); return; }
-    showScreen('s-muzloto');
-    window.scrollTo(0, 0);
-    if(mzCard.length === 0) loadMzProgress();
-  } else if(tab === 'quest') {
-    if(!myData) { showScreen('s-enter'); return; }
-    showScreen('s-quest');
-    window.scrollTo(0, 0);
-    // Сначала рендерим с текущим прогрессом, потом подгружаем из базы
-    renderQuestTab();
-    loadQuestProgress();
-  } else if(tab === 'ship') {
-    if(!myData) { showScreen('s-enter'); return; }
-    showScreen('s-ship');
-    window.scrollTo(0, 0);
-  }
-}
-
-// Показываем навигацию только после входа
-function showNav(show) {
-  const nav = document.getElementById('bottom-nav');
-  if(nav) nav.style.display = show ? 'flex' : 'none';
-}
-
 const DB = 'https://passport-tusovshika-default-rtdb.europe-west1.firebasedatabase.app';
 
 const TEAMS = [
@@ -689,188 +248,226 @@ const TEAMS = [
   {name:"Фиолетовая",color:"#5E1F9A",light:"#F5EDFF",titles:["Тайный агент праздника","Мистер загадка","Главный интриган","Мастер конспирации","Легенда в тени","Самый непредсказуемый","Ночной король","Мастер исчезновений","Главный по секретам","Абсолютная легенда"]},
 ];
 
-const TASKS = ["Спеть куплет любой песни подходящей к тосту","Придумать и рассказать тост не подходящий ни одному имениннику","Сделать комплимент каждому имениннику лично","Рассказать сюжет любого фильма как самую смешную историю из своей жизни","Организовать спонтанный флешмоб на 10 секунд","Повторять за именинниками рандомные слова","Пригласить любого человека на медленный танец","Пройти задом наперёд от одного конца стола до другого","Подарить или продать своего знакомого имениннику","Рекламировать шашлык как продавец на рынке","Угощать всех вокруг едой со своей тарелки","Объявить каждое новое блюдо как ресторанный официант","Называть всех по имени-отчеству при каждом обращении","Рассказывать несмешные анекдоты с серьёзным лицом","Постоянно хвалить именинников при любом удобном случае","При каждом тосте вставать и аплодировать стоя","Всем представляться выдуманным именем весь вечер","Задавать всем один вопрос: кто ты по знаку зодиака?","Придумать всем гостям прозвища и обращаться только по ним","Делать вид что ты знаменитость и раздавать автографы","Станцевать хоровод — организовать и провести","При каждом тосте чокнуться со всеми присутствующими лично","Сделать селфи с каждым гостем по очереди","Провести экскурсию по даче как профессиональный гид","Провести мастер-класс по любому навыку","Быть личным глашатаем именинников — объявлять их появление","Быть тамадой одного тоста — максимально торжественно","Придумать и исполнить рекламный джингл про этот праздник","Провести перекличку всех гостей по именам","Объявлять результаты каждого конкурса как спортивный комментатор","Давать всем советы по шашлыку у мангала","Нюхать каждое блюдо перед тем как съесть","Называть все напитки французскими названиями","Есть очень медленно — комментировать каждый кусок","Придумать название каждому блюду на столе","Пить воду как будто это самое изысканное вино","Познакомить между собой минимум 5 пар незнакомых гостей","Провести светскую беседу о погоде с серьёзным лицом","Делать вид что видишь всех впервые и знакомиться заново","Отвечать на все вопросы вопросом в течение 15 минут","Давать всем советы по жизни которых никто не просил","Находить глубокий смысл в любой мелочи и рассказывать об этом","Весь вечер говорить что раньше праздники были другими","Рассказывать о своём великом прошлом при каждом удобном случае","Говорить о себе в третьем лице в течение 15 минут","Начинать каждую фразу со слов как говорил мой дедушка","Изобразить пантомиму — любое животное пока не угадают","Вести репортаж с праздника как журналист — вслух","Изобразить любого именинника так чтобы все угадали","Организовать голосование за лучший тост вечера"];
+const TASKS = ["Спеть куплет любой песни подходящей к тосту","Придумать тост не подходящий ни одному имениннику","Сделать комплимент каждому имениннику лично","Рассказать сюжет фильма как смешную историю из своей жизни","Организовать спонтанный флешмоб на 10 секунд","Повторять за именинниками рандомные слова","Пригласить любого на медленный танец","Пройти задом наперёд от одного конца стола до другого","Подарить или продать своего знакомого имениннику","Рекламировать шашлык как продавец на рынке","Угощать всех едой со своей тарелки","Объявить каждое блюдо как ресторанный официант","Называть всех по имени-отчеству","Рассказывать несмешные анекдоты с серьёзным лицом","Постоянно хвалить именинников","При каждом тосте вставать и аплодировать стоя","Всем представляться выдуманным именем","Задавать всем вопрос: кто ты по знаку зодиака?","Придумать всем прозвища и обращаться только по ним","Делать вид что ты знаменитость и раздавать автографы","Станцевать хоровод — организовать и провести","При каждом тосте чокнуться со всеми лично","Сделать селфи с каждым гостем","Провести экскурсию по даче как гид","Провести мастер-класс по любому навыку","Быть глашатаем именинников — объявлять их появление","Быть тамадой одного тоста — максимально торжественно","Придумать и исполнить джингл про этот праздник","Провести перекличку всех гостей по именам","Объявлять результаты конкурсов как спортивный комментатор","Давать советы по шашлыку у мангала","Нюхать каждое блюдо перед тем как съесть","Называть все напитки французскими названиями","Есть очень медленно и комментировать каждый кусок","Придумать название каждому блюду на столе","Пить воду как самое изысканное вино","Познакомить минимум 5 пар незнакомых гостей","Провести светскую беседу о погоде с серьёзным лицом","Делать вид что видишь всех впервые","Отвечать на все вопросы вопросом 15 минут","Давать советы по жизни которых никто не просил","Находить глубокий смысл в любой мелочи","Весь вечер говорить что раньше праздники были другими","Рассказывать о своём великом прошлом","Говорить о себе в третьем лице 15 минут","Начинать каждую фразу со слов как говорил мой дедушка","Изобразить пантомиму — любое животное пока не угадают","Вести репортаж с праздника как журналист вслух","Изобразить любого именинника так чтобы все угадали","Организовать голосование за лучший тост вечера"];
 
 const STAMPS = ["Собрал бинго в музлото","Выжил в бане","Посетил все бары","Произнёс тост","Помогал организатору","Фото с именинниками","Выполнил тайное задание","Танцевал 3 минуты","Громко пел на корабле","Выиграл конкурс"];
-const STAMP_EMOJI = ["🎵","🔥","🍺","🥂","🤝","📸","🕵️","💃","🚢","🏆"];
+const STAMP_E = ["🎵","🔥","🍺","🥂","🤝","📸","🕵️","💃","🚢","🏆"];
 
-function hashStr(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h);}
+const TRACKS = [[1,"Бонд с кнопкой","Кухни"],[2,"Баста","Сансара"],[3,"Танцы Минус","Половинка"],[4,"Найк Борзов","Верхом на звезде"],[5,"Ляпис Трубецкой","Капитал"],[6,"Элизиум","Острова"],[7,"Гудтаймс","Видение"],[8,"The Hatters","Да, со мной не просто"],[9,"Rammstein","Du Hast"],[10,"GAYAZOVS BROTHERS","Малиновая лада"],[11,"ARTIK&ASTI","Грустный дэнс"],[12,"Мас Корж","Жить в кайф"],[13,"Чиж & Co","О любви"],[14,"Ed Sheeran","Shape of You"],[15,"O-zone","Dragostea Din Tei"],[16,"Mark Ronson","Uptown Funk"],[17,"Michel Telo","Ai Se Eu Te Pego"],[18,"Zaz","Je veux"],[19,"Imagine Dragons","Thunder"],[20,"Maroon 5","Moves Like Jagger"],[21,"Cristina Aguilera","Lady Marmalade"],[22,"IOWA","Улыбайся"],[23,"Отпетые мошенники","Люби меня, люби"],[24,"CREAM SODA","Никаких больше вечеринок"],[25,"Антон Токарев","Седьмой лепесток"],[26,"Гости из будущего","Беги от меня"],[27,"Земфира","Ромашки"],[28,"Женя Трофимов","Самолёты"],[29,"Ray Charles","Hit The Road Jack"],[30,"Bee Gees","Stayin Alive"],[31,"Чичерина","Ту-лу-ла"],[32,"Queen","I Want To Break Free"],[33,"БАНДЭРОС","Про красивую жизнь"],[34,"50 Cent","Candy Shop"],[35,"Timbaland","Give It To Me"],[36,"Валерий Меладзе","Салют, Вера"],[37,"ВИА ГРА","Попытка No5"],[38,"Led Zeppelin","Immigrant Song"],[39,"Pink Floyd","Another Brick In The Wall"],[40,"Bon Jovi","Its My Life"],[41,"A-ha","Take On Me"],[42,"KREC","Нежность"],[43,"Akon, Eminem","Smack That"],[44,"Backstreet Boys","Show Me The Meaning"],[45,"Black Eyed Peas","Lets Get It Started"],[46,"Britney Spears","Ooops I Did It Again"],[47,"Green Day","Boulevard of Broken Dreams"],[48,"Blink-182","All The Small Things"],[49,"Дискотека Авария","Если хочешь остаться"],[50,"Uma2rman","Ночной дозор"],[51,"Леонид Агутин","Хоп хэй лала лэй"],[52,"t.A.T.u.","Нас не догонят"],[53,"Кино","Перемен"],[54,"Би-2","Варвара"],[55,"Руки вверх!","Крошка моя"],[56,"Александр Иванов","Бледный бармен"],[57,"Benny Benassi","Satisfaction"],[58,"Tarkan","Shikidim"],[59,"Gloria Gaynor","I Will Survive"],[60,"Ленинград","WWW"],[61,"Пропаганда","Мелом"],[62,"Guano Apes","Open Your Eyes"],[63,"Nirvana","Smells Like Teen Spirit"],[64,"The Offspring","Pretty Fly"],[65,"No Doubt","Dont Speak"],[66,"The Prodigy","Smack My Bitch Up"],[67,"Bloodhound Gang","The Bad Touch"],[68,"Сектор Газа","Лирика"],[69,"Сплин","Орбит без сахара"],[70,"Смысловые галлюцинации","Вечно молодой"]];
+const MZ_CENTER = [71,"Аллегрова","С днём рождения"];
+
+const ROTATION = {0:["Тесла","Dr. Moro","Хоровод"],1:["Dr. Moro","Хоровод","Тесла"],2:["Хоровод","Тесла","Dr. Moro"],3:["Тесла","Хоровод","Dr. Moro"],4:["Dr. Moro","Тесла","Хоровод"]};
+const BAR_TIMES = ["17:00","17:45","18:30"];
+const BAR_DATA = {
+  "Тесла":{addr:"ул. Рубинштейна, 30",tasks:[{type:"🔍 Про бар",text:"В Тесла баре есть диджейский пульт в виде стимпанкового органа из труб. Сосчитайте количество труб и запишите число — это ключ к следующей локации.",bg:"#E8EAF6",border:"#5C6BC0",tc:"#283593"},{type:"🧠 Про именинников",text:"Раунд 1 — Кто это сделал? (вопросы 1-7). Именинник ведёт. Все 7 правильно — открывается следующий бар.",bg:"#EDE7F6",border:"#7E57C2",tc:"#4527A0"},{type:"📸 Интерактив",text:"Сделайте фото в образе стимпанк-персонажей — используйте реквизит бара. Лучшее фото в общий чат!",bg:"#E3F2FD",border:"#42A5F5",tc:"#1565C0"}]},
+  "Dr. Moro":{addr:"ул. Жуковского, 15",tasks:[{type:"🔍 Про бар",text:"В баре есть клетка. Кто или что в ней находится прямо сейчас? Опишите подробно — это пароль для следующей локации.",bg:"#FBE9E7",border:"#BF360C",tc:"#BF360C"},{type:"🧠 Про именинников",text:"Раунд 2 — Угадай кого (вопросы 1-7). Именинник ведёт. Все 7 правильно — открывается следующий бар.",bg:"#FFF3E0",border:"#FF8F00",tc:"#E65100"},{type:"📸 Интерактив",text:"Уговорите бармена поздравить именинников на любом иностранном языке — снять на видео. Чем экзотичнее язык, тем больше баллов!",bg:"#F3E5F5",border:"#AB47BC",tc:"#6A1B9A"}]},
+  "Хоровод":{addr:"ул. Некрасова, 58",tasks:[{type:"🔍 Про бар",text:"Найдите на фасаде или внутри любую историческую дату и расскажите что произошло в этот год в России.",bg:"#E8F5E9",border:"#2E7D32",tc:"#1B5E20"},{type:"🧠 Про именинников",text:"Раунд 3 — Финал на скорость (вопросы 1-5). Кто первый кричит правильный ответ — получает балл.",bg:"#F1F8E9",border:"#558B2F",tc:"#33691E"},{type:"📸 Интерактив",text:"Организуйте хоровод прямо в баре — все члены команды плюс минимум 2 случайных гостя бара. Видео минимум 10 секунд!",bg:"#E0F7FA",border:"#00897B",tc:"#004D40"}]}
+};
+
+function h(s){let v=0;for(let i=0;i<s.length;i++){v=((v<<5)-v)+s.charCodeAt(i);v|=0;}return Math.abs(v);}
 function nameKey(n){return n.toLowerCase().replace(/[^a-zа-яё0-9]/gi,'_');}
 
-let myData=null;
-let stampState=new Array(10).fill(false);
-let stampTimes=new Array(10).fill('');
-let saveTimer=null;
+let myData=null, stampState=new Array(10).fill(false), stampTimes=new Array(10).fill('');
+let mzState=new Array(25).fill(false), mzCard=[], questProgress={};
+let saveTimer=null, mzSaveTimer=null, questSaveTimer=null;
+let currentTab='passport';
 
-const nameInput=document.getElementById('name-input');
-const btnStart=document.getElementById('btn-start');
-nameInput.addEventListener('input',function(){btnStart.disabled=this.value.trim().length<2;});
-nameInput.addEventListener('keydown',function(e){if(e.key==='Enter'&&this.value.trim().length>=2)startPassport();});
+// DB
+async function dbGet(path){try{const r=await fetch(DB+path+'.json');return await r.json();}catch(e){return null;}}
+async function dbSet(path,data){try{await fetch(DB+path+'.json',{method:'PUT',body:JSON.stringify(data)});}catch(e){}}
+async function dbDel(path){try{await fetch(DB+path+'.json',{method:'DELETE'});}catch(e){}}
 
-async function dbGet(path){
-  try{const r=await fetch(DB+path+'.json');const d=await r.json();return d;}
-  catch(e){return null;}
-}
-async function dbSet(path,data){
-  try{await fetch(DB+path+'.json',{method:'PUT',body:JSON.stringify(data)});return true;}
-  catch(e){return false;}
-}
-async function dbDelete(path){
-  try{await fetch(DB+path+'.json',{method:'DELETE'});return true;}
-  catch(e){return false;}
-}
-
-function showSave(state){
-  const el=document.getElementById('save-indicator');
-  if(state==='saving'){el.textContent='Сохраняем...';el.className='save-indicator saving';}
-  else if(state==='saved'){el.textContent='✓ Сохранено';el.className='save-indicator saved';setTimeout(()=>{el.textContent='';el.className='save-indicator';},2000);}
-  else{el.textContent='';el.className='save-indicator';}
-}
-
-async function saveProgress(){
-  if(!myData)return;
-  showSave('saving');
-  const key=nameKey(myData.name);
-  await dbSet('/guests/'+key+'/stamps',{state:stampState,times:stampTimes});
-  showSave('saved');
-}
-
-function scheduleSave(){
-  if(saveTimer)clearTimeout(saveTimer);
-  saveTimer=setTimeout(saveProgress,1000);
-}
+// Вход
+const ni=document.getElementById('name-input');
+const bs=document.getElementById('btn-start');
+ni.addEventListener('input',()=>bs.disabled=ni.value.trim().length<2);
+ni.addEventListener('keydown',e=>{if(e.key==='Enter'&&ni.value.trim().length>=2)startPassport();});
 
 async function startPassport(){
-  const name=nameInput.value.trim();
+  const name=ni.value.trim();
   if(name.length<2)return;
-  showScreen('s-loading');
-
+  goPage('p-loading');
   const key=nameKey(name);
-  let guestData=await dbGet('/guests/'+key);
-
-  if(guestData&&guestData.name){
-    myData=guestData;
-    // Загружаем сохранённые печати
-    if(guestData.stamps){
-      stampState=guestData.stamps.state||new Array(10).fill(false);
-      stampTimes=guestData.stamps.times||new Array(10).fill('');
-    } else {
-      stampState=new Array(10).fill(false);
-      stampTimes=new Array(10).fill('');
-    }
+  let g=await dbGet('/guests/'+key);
+  if(g&&g.name){
+    myData=g;
+    stampState=g.stamps?.state||new Array(10).fill(false);
+    stampTimes=g.stamps?.times||new Array(10).fill('');
+    mzState=g.muzloto?.state||new Array(25).fill(false);
+    questProgress=g.quest||{};
   } else {
-    // Новый гость — определяем команду
-    const allGuests=await dbGet('/guests')||{};
-    const guests=Object.values(allGuests);
-    const teamCounts=TEAMS.map((_,i)=>guests.filter(g=>g.team===i).length);
-    const minCount=Math.min(...teamCounts);
-    const availTeams=teamCounts.map((c,i)=>c===minCount?i:-1).filter(i=>i>=0);
-    const teamIdx=availTeams[hashStr(name)%availTeams.length];
-    const team=TEAMS[teamIdx];
-    const inTeam=guests.filter(g=>g.team===teamIdx).length;
-    const titleIdx=inTeam%team.titles.length;
-    const taskIdx=hashStr(name)%TASKS.length;
-    const passNum=(hashStr(name)%900)+100;
-    guestData={name,team:teamIdx,title:team.titles[titleIdx],task:taskIdx,num:passNum};
-    myData=guestData;
-    stampState=new Array(10).fill(false);
-    stampTimes=new Array(10).fill('');
-    await dbSet('/guests/'+key,guestData);
+    const all=await dbGet('/guests')||{};
+    const guests=Object.values(all);
+    const tc=TEAMS.map((_,i)=>guests.filter(x=>x.team===i).length);
+    const mn=Math.min(...tc);
+    const av=tc.map((c,i)=>c===mn?i:-1).filter(i=>i>=0);
+    const ti=av[h(name)%av.length];
+    const inT=guests.filter(x=>x.team===ti).length;
+    myData={name,team:ti,title:TEAMS[ti].titles[inT%TEAMS[ti].titles.length],task:h(name)%TASKS.length,num:(h(name)%900)+100};
+    stampState=new Array(10).fill(false);stampTimes=new Array(10).fill('');
+    mzState=new Array(25).fill(false);questProgress={};
+    await dbSet('/guests/'+key,myData);
   }
-
-  renderPassport(myData);
-  showScreen('s-passport');
+  mzCard=genMzCard(myData.name);
+  renderPassport();
+  document.getElementById('nav').classList.add('show');
+  switchTab('passport');
 }
 
-function renderPassport(g){
-  const team=TEAMS[g.team];
-  document.getElementById('pc-cover').style.background=team.color;
-  document.getElementById('pc-name').textContent=g.name;
-  document.getElementById('pc-title').textContent=g.title;
-  document.getElementById('pc-team').textContent=team.name+' команда';
-  document.getElementById('pc-num').textContent='серия ДР · № '+g.num;
-  document.getElementById('task-text').textContent=TASKS[g.task];
-  document.getElementById('scount').style.color=team.color;
-  document.getElementById('sfill').style.background=team.color;
-  const reward=document.getElementById('reward');
-  reward.style.background=team.light;
-  reward.style.borderColor=team.color;
-  document.getElementById('reward-text').style.color=team.color;
-  renderStamps(team.color);
-  updateProgress(team.color);
-  showNav(true);
-  loadMzProgress();
-  loadQuestProgress();
+function renderPassport(){
+  const t=TEAMS[myData.team];
+  document.getElementById('pc-cover').style.background=t.color;
+  document.getElementById('pc-name').textContent=myData.name;
+  document.getElementById('pc-title').textContent=myData.title;
+  document.getElementById('pc-team').textContent=t.name+' команда';
+  document.getElementById('pc-num').textContent='серия ДР · № '+myData.num;
+  document.getElementById('task-text').textContent=TASKS[myData.task];
+  document.getElementById('s-count').style.color=t.color;
+  document.getElementById('s-fill').style.background=t.color;
+  const rw=document.getElementById('reward');
+  rw.style.background=t.light;rw.style.borderColor=t.color;
+  document.getElementById('reward-text').style.color=t.color;
+  renderStamps(t.color);
+  updateStampProg(t.color);
 }
 
 function renderStamps(color){
-  const grid=document.getElementById('stamps-grid');
-  grid.innerHTML='';
+  const g=document.getElementById('stamps-grid');g.innerHTML='';
   STAMPS.forEach((s,i)=>{
-    const div=document.createElement('div');
-    div.className='stamp';
-    if(stampState[i]){div.style.background=color+'15';div.style.borderColor=color;}
-    div.onclick=()=>toggleStamp(i,color);
-    div.innerHTML=`<div class="stamp-icon" style="${stampState[i]?'border-color:'+color+';background:'+color:''}">${STAMP_EMOJI[i]}</div><div class="stamp-text" style="${stampState[i]?'color:'+color+';font-weight:500':''}">${s}</div><div class="stamp-time" style="${stampState[i]?'color:'+color:''}">${stampTimes[i]}</div>`;
-    grid.appendChild(div);
+    const d=document.createElement('div');d.className='stamp';
+    if(stampState[i]){d.style.background=color+'15';d.style.borderColor=color;}
+    d.onclick=()=>toggleStamp(i,color);
+    d.innerHTML=`<div class="stamp-icon" style="${stampState[i]?'border-color:'+color+';background:'+color:''}">${STAMP_E[i]}</div><div class="stamp-text" style="${stampState[i]?'color:'+color+';font-weight:500':''}">${s}</div><div class="stamp-time" style="${stampState[i]?'color:'+color:''}">${stampTimes[i]}</div>`;
+    g.appendChild(d);
   });
 }
 
 function toggleStamp(i,color){
   stampState[i]=!stampState[i];
-  if(stampState[i]){const now=new Date();stampTimes[i]=now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');}
-  else{stampTimes[i]='';}
-  renderStamps(color);
-  updateProgress(color);
-  scheduleSave();
+  if(stampState[i]){const n=new Date();stampTimes[i]=n.getHours()+':'+String(n.getMinutes()).padStart(2,'0');}
+  else stampTimes[i]='';
+  renderStamps(color);updateStampProg(color);
+  if(saveTimer)clearTimeout(saveTimer);
+  saveTimer=setTimeout(async()=>{
+    setSaveInd('saving');
+    await dbSet('/guests/'+nameKey(myData.name)+'/stamps',{state:stampState,times:stampTimes});
+    setSaveInd('saved');
+  },1000);
 }
 
-function updateProgress(color){
-  const done=stampState.filter(Boolean).length;
-  document.getElementById('scount').textContent=done+' / 10';
-  document.getElementById('sfill').style.width=Math.round(done/10*100)+'%';
-  document.getElementById('reward').classList.toggle('show',done===10);
+function updateStampProg(color){
+  const d=stampState.filter(Boolean).length;
+  document.getElementById('s-count').textContent=d+' / 10';
+  document.getElementById('s-fill').style.width=Math.round(d/10*100)+'%';
+  document.getElementById('reward').classList.toggle('show',d===10);
 }
 
-function resetPassport(){
-  myData=null;nameInput.value='';btnStart.disabled=true;
-  mzCard=[];mzState=new Array(25).fill(false);
-  questProgress={};
-  showNav(false);
-  showScreen('s-enter');
+function setSaveInd(s){
+  const el=document.getElementById('save-ind');
+  if(s==='saving'){el.textContent='Сохраняем...';el.className='save-ind saving';}
+  else if(s==='saved'){el.textContent='✓ Сохранено';el.className='save-ind saved';setTimeout(()=>{el.textContent='';el.className='save-ind';},2000);}
 }
 
-async function showAdmin(){
-  showScreen('s-loading');
-  const allGuests=await dbGet('/guests')||{};
-  const guests=Object.values(allGuests);
-  const stats=document.getElementById('team-stats');
-  stats.innerHTML=TEAMS.map((t,i)=>{
-    const cnt=guests.filter(g=>g.team===i).length;
-    return`<div class="tstat"><div class="tstat-name" style="color:${t.color}">${t.name}</div><div class="tstat-count" style="color:${t.color}">${cnt} чел.</div></div>`;
+function logout(){myData=null;ni.value='';bs.disabled=true;document.getElementById('nav').classList.remove('show');goPage('p-enter');}
+
+async function goAdmin(){
+  goPage('p-loading');
+  const all=await dbGet('/guests')||{};
+  const guests=Object.values(all);
+  document.getElementById('team-stats').innerHTML=TEAMS.map((t,i)=>`<div class="tstat"><div class="tstat-name" style="color:${t.color}">${t.name}</div><div class="tstat-count" style="color:${t.color}">${guests.filter(g=>g.team===i).length} чел.</div></div>`).join('');
+  document.getElementById('guest-list').innerHTML=guests.length?guests.map(g=>`<div class="guest-item"><div class="guest-dot" style="background:${TEAMS[g.team].color}"></div><div><div>${g.name}</div><div class="guest-sub">${g.title} · ${TEAMS[g.team].name}</div></div></div>`).join(''):'<div style="color:#aaa;font-size:13px">Пока никто не зарегистрировался</div>';
+  goPage('p-admin');
+}
+
+async function clearAll(){if(confirm('Сбросить всех гостей?')){await dbDel('/guests');document.getElementById('guest-list').innerHTML='<div style="color:#aaa;font-size:13px">Список очищен</div>';}}
+
+// Музлото
+function genMzCard(name){
+  const hv=h(name+'_mz');
+  const pool=[...TRACKS];
+  for(let i=pool.length-1;i>0;i--){const j=Math.abs((hv*(i+1))^(hv>>3))%(i+1);[pool[i],pool[j]]=[pool[j],pool[i]];}
+  const sel=pool.slice(0,24);
+  return [...sel.slice(0,12),MZ_CENTER,...sel.slice(12)];
+}
+
+function renderMzGrid(){
+  const g=document.getElementById('mz-grid');if(!g)return;g.innerHTML='';
+  mzCard.forEach((t,i)=>{
+    const isC=i===12;
+    const ck=mzState[i];
+    const d=document.createElement('div');
+    d.className='mz-cell'+(isC?' center':'')+(ck?' checked':'');
+    d.onclick=()=>{mzState[i]=!mzState[i];renderMzGrid();updateMzProg();scheduleMzSave();};
+    d.innerHTML=`<div class="mz-num">${isC?'★':'#'+t[0]}</div><div class="mz-song">${t[2].length>14?t[2].slice(0,13)+'…':t[2]}</div><div class="mz-artist">${t[1].split(',')[0].slice(0,12)}</div>`;
+    g.appendChild(d);
+  });
+  const lines=[[0,1,2,3,4],[5,6,7,8,9],[10,11,12,13,14],[15,16,17,18,19],[20,21,22,23,24],[0,5,10,15,20],[1,6,11,16,21],[2,7,12,17,22],[3,8,13,18,23],[4,9,14,19,24],[0,6,12,18,24],[4,8,12,16,20]];
+  document.getElementById('mz-bingo').style.display=lines.some(l=>l.every(i=>mzState[i]))?'block':'none';
+}
+
+function updateMzProg(){
+  const d=mzState.filter(Boolean).length;
+  document.getElementById('mz-count').textContent=d+' / 25';
+  document.getElementById('mz-fill').style.width=Math.round(d/25*100)+'%';
+}
+
+function scheduleMzSave(){
+  if(mzSaveTimer)clearTimeout(mzSaveTimer);
+  mzSaveTimer=setTimeout(()=>dbSet('/guests/'+nameKey(myData.name)+'/muzloto',{state:mzState}),1000);
+}
+
+// Квест
+function renderQuestTab(){
+  if(!myData)return;
+  const t=TEAMS[myData.team];
+  const rot=ROTATION[myData.team];
+  document.getElementById('team-route').innerHTML=rot.map((bar,i)=>`<div class="route-step"><div class="route-time">${BAR_TIMES[i]}</div><div class="route-icon">🍺</div><div><div class="route-name" style="color:${t.color}">${bar}</div><div class="route-desc">${BAR_DATA[bar].addr}</div></div></div>`).join('');
+  const te=document.getElementById('bar-tasks');if(!te)return;
+  te.innerHTML=rot.map((bar,bi)=>{
+    const bd=BAR_DATA[bar];
+    const pk='bar_'+bi;
+    const pr=questProgress[pk]||[false,false,false];
+    const allDone=pr.every(Boolean);
+    const next=rot[bi+1]||null;
+    return`<div class="bar-card"><div class="bar-name">${bar}</div><div class="bar-addr">${bd.addr} · ${BAR_TIMES[bi]}</div>${bd.tasks.map((tk,ti)=>`<div class="task-block" style="background:${tk.bg};border:0.5px solid ${tk.border}"><div class="task-block-title" style="color:${tk.tc}">${tk.type}</div><div class="task-check" onclick="toggleQT(${bi},${ti})"><div class="task-check-box${pr[ti]?' done':''}">${pr[ti]?'✓':''}</div><div class="task-check-label${pr[ti]?' done':''}">${tk.text}</div></div></div>`).join('')}<div class="next-bar${allDone?' show':''}" id="nb_${bi}"><div class="next-bar-label">✅ ВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ!</div><div class="next-bar-name">${next||'🧀 Чиз Визард / Гоблинский пунш'}</div></div></div>`;
   }).join('');
-  const gl=document.getElementById('guest-list');
-  if(!guests.length){gl.innerHTML='<div style="color:#aaa;font-size:13px;padding:8px 0">Пока никто не зарегистрировался</div>';}
-  else{gl.innerHTML=guests.map(g=>`<div class="guest-item"><div class="guest-dot" style="background:${TEAMS[g.team].color}"></div><div><div>${g.name}</div><div class="guest-title">${g.title} · ${TEAMS[g.team].name}</div></div></div>`).join('');}
-  showScreen('s-admin');
 }
 
-function showPassport(){
-  if(myData)showScreen('s-passport');
-  else showScreen('s-enter');
+function toggleQT(bi,ti){
+  const pk='bar_'+bi;
+  if(!questProgress[pk])questProgress[pk]=[false,false,false];
+  questProgress[pk][ti]=!questProgress[pk][ti];
+  renderQuestTab();
+  if(questSaveTimer)clearTimeout(questSaveTimer);
+  questSaveTimer=setTimeout(()=>dbSet('/guests/'+nameKey(myData.name)+'/quest',questProgress),1000);
 }
 
-async function clearAll(){
-  if(confirm('Сбросить список всех гостей?')){
-    await dbDelete('/guests');
-    document.getElementById('team-stats').innerHTML='';
-    document.getElementById('guest-list').innerHTML='<div style="color:#aaa;font-size:13px;padding:8px 0">Список очищен</div>';
-  }
-}
-
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+// Навигация
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function switchTab(tab){
+  currentTab=tab;
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  const navEl=document.getElementById('nav-'+tab);
+  if(navEl)navEl.classList.add('active');
+  if(tab==='passport'){
+    if(myData)goPage('p-passport');else goPage('p-enter');
+  } else if(tab==='muzloto'){
+    if(!myData){goPage('p-enter');return;}
+    goPage('p-muzloto');
+    renderMzGrid();updateMzProg();
+  } else if(tab==='quest'){
+    if(!myData){goPage('p-enter');return;}
+    goPage('p-quest');
+    renderQuestTab();
+  } else if(tab==='ship'){
+    if(!myData){goPage('p-enter');return;}
+    goPage('p-ship');
+  }
 }
 </script>
 </body>
