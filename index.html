@@ -428,12 +428,14 @@ let questProgress = {};
 let questSaveTimer = null;
 
 function renderQuestTab() {
-  if(!myData) return;
+  if(!myData) { console.log('renderQuestTab: no myData'); return; }
   const team = TEAMS[myData.team];
   const rotation = ROTATION[myData.team];
+  console.log('renderQuestTab: team=', myData.team, 'rotation=', rotation);
 
   // Маршрут команды
   const routeEl = document.getElementById('team-route');
+  console.log('routeEl:', routeEl);
   if(routeEl) {
     routeEl.innerHTML = rotation.map((bar, i) => `
       <div class="route-step">
@@ -448,6 +450,7 @@ function renderQuestTab() {
 
   // Задания баров
   const tasksEl = document.getElementById('bar-tasks');
+  console.log('tasksEl:', tasksEl);
   if(tasksEl) {
     tasksEl.innerHTML = rotation.map((bar, barIdx) => {
       const bd = BAR_DATA[bar];
