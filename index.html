@@ -474,14 +474,16 @@ function renderQuestTab(){
   if(codeBlock) codeBlock.style.display = questStarted ? 'none' : 'block';
   if(barTasks) barTasks.style.display = questStarted ? 'block' : 'none';
   if(!questStarted) {
-    // Показываем загадку для первого бара команды
     const START_RIDDLES = {
-      'Тесла': 'Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит.',
-      'Хоровод': 'Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему.',
+      'Тесла': '🔐 «Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит»',
+      'Хоровод': '🔐 «Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему»',
     };
-    const firstBar = rot[0];
+    const firstBar = (rot && rot[0]) ? rot[0] : null;
     const riddleEl = document.getElementById('start-riddle');
-    if(riddleEl) riddleEl.textContent = START_RIDDLES[firstBar] || 'Загадка будет выдана на старте организатором.';
+    if(riddleEl && firstBar) {
+      riddleEl.textContent = START_RIDDLES[firstBar] || '🔐 Загадка будет выдана на старте организатором.';
+      riddleEl.style.display = 'block';
+    }
     return;
   }
 
