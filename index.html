@@ -535,13 +535,8 @@ function renderQuestTab(){
     const next=rot[bi+1]||null;
 
     // Проверяем разблокирован ли этот бар
-    // Все бары требуют ввода кодового слова - первый через стартовый экран, остальные через загадки
-    let unlocked = questProgress['unlocked_'+bi] === true;
-    if(!unlocked && bi>0){
-      const prevPk='bar_'+(bi-1);
-      const prevPr=questProgress[prevPk]||[false,false,false];
-      if(prevPr.every(Boolean)) unlocked=true;
-    }
+    // Бар разблокирован ТОЛЬКО если введено кодовое слово
+    const unlocked = questProgress['unlocked_'+bi] === true;
 
     if(!unlocked){
       html+=`<div class="bar-card" style="background:#f8f7f4">
