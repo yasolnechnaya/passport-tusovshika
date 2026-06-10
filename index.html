@@ -429,7 +429,7 @@ async function unlockBar(bi, barName){
   }
 }
 
-function resetQuest(){
+async function resetQuest(){
   if(!myData) return;
   if(confirm('Сбросить прогресс квеста? Печати и музлото останутся.')){
     questProgress={};
