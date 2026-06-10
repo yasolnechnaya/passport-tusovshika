@@ -345,8 +345,6 @@ async function startPassport(){
   renderPassport();
   document.getElementById('nav').classList.add('show');
   switchTab('passport');
-  // Предварительно рендерим загадку квеста
-  setTimeout(()=>renderQuestTab(), 100);
 }
 
 function renderPassport(){
@@ -477,14 +475,13 @@ function renderQuestTab(){
   if(barTasks) barTasks.style.display = questStarted ? 'block' : 'none';
   if(!questStarted) {
     const START_RIDDLES = {
-      'Тесла': '🔐 «Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит»',
-      'Хоровод': '🔐 «Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему»',
+      'Тесла': '«Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит»',
+      'Хоровод': '«Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему»',
     };
-    const firstBar = (rot && rot[0]) ? rot[0] : null;
+    const firstBar = rot ? rot[0] : null;
     const riddleEl = document.getElementById('start-riddle');
-    if(riddleEl && firstBar) {
-      riddleEl.textContent = START_RIDDLES[firstBar] || '🔐 Загадка будет выдана на старте организатором.';
-      riddleEl.style.display = 'block';
+    if(riddleEl) {
+      riddleEl.textContent = firstBar ? (START_RIDDLES[firstBar] || '🔐 Загадка будет выдана организатором') : '🔐 Загадка будет выдана организатором';
     }
     return;
   }
