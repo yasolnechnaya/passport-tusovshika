@@ -345,6 +345,8 @@ async function startPassport(){
   renderPassport();
   document.getElementById('nav').classList.add('show');
   switchTab('passport');
+  // Предварительно рендерим загадку квеста
+  setTimeout(()=>renderQuestTab(), 100);
 }
 
 function renderPassport(){
