@@ -219,7 +219,7 @@ textarea{font-family:inherit}
     <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844"><div class="task-block-title" style="color:#E65100">😂 Весёлое</div><div class="task-block-text">За 3 минуты придумайте и исполните кричалку своей команды с движениями — перед всеми гостями.</div></div>
   </div>
   <div class="bar-card">
-    <div class="bar-name">🧀 Чиз Визард / Гоблинский пунш</div>
+    <div class="bar-name">🧀 Чиз Визард / Кренк</div>
     <div class="bar-addr">Общая точка · все встречаются</div>
     <div class="task-block" style="background:#FFF8E1;border:0.5px solid #FFD700"><div class="task-block-title" style="color:#C07D0A">📸 Интерактив</div><div class="task-block-text">Сделайте фото «до и после» — как выглядела команда в начале дня и как выглядит сейчас.</div></div>
     <div class="task-block" style="background:#FFF3E0;border:0.5px solid #FF8844"><div class="task-block-title" style="color:#E65100">😂 Весёлое</div><div class="task-block-text">Крокодил — каждая команда показывает одно слово: «похмелье», «последний глоток», «бармен-философ», «танцпол в 3 ночи», «утренний звонок маме».</div></div>
@@ -474,15 +474,12 @@ function renderQuestTab(){
   if(codeBlock) codeBlock.style.display = questStarted ? 'none' : 'block';
   if(barTasks) barTasks.style.display = questStarted ? 'block' : 'none';
   if(!questStarted) {
-    const START_RIDDLES = {
-      'Тесла': '«Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит»',
-      'Хоровод': '«Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему»',
-    };
+    // Показываем загадку для первого бара команды
     const firstBar = rot ? rot[0] : null;
-    const riddleEl = document.getElementById('start-riddle');
-    if(riddleEl) {
-      riddleEl.textContent = firstBar ? (START_RIDDLES[firstBar] || '🔐 Загадка будет выдана организатором') : '🔐 Загадка будет выдана организатором';
-    }
+    const rTesla = document.getElementById('riddle-tesla');
+    const rHorovod = document.getElementById('riddle-horovod');
+    if(rTesla) rTesla.style.display = (firstBar === 'Тесла') ? 'block' : 'none';
+    if(rHorovod) rHorovod.style.display = (firstBar === 'Хоровод') ? 'block' : 'none';
     return;
   }
 
@@ -530,7 +527,7 @@ function renderQuestTab(){
         </div>`).join('')}
         <div class="next-bar${allDone?' show':''}" id="nb_${bi}">
           <div class="next-bar-label">✅ ВСЕ ЗАДАНИЯ ВЫПОЛНЕНЫ!</div>
-          <div class="next-bar-name">${next||'🧀 Чиз Визард / Гоблинский пунш'}</div>
+          <div class="next-bar-name">${next||'🧀 Чиз Визард / Кренк'}</div>
           ${next?`<div style="font-size:11px;color:#1A7A40;margin-top:4px">${BAR_DATA[next].addr} · ${BAR_TIMES[bi+1]}</div>`:'<div style="font-size:11px;color:#1A7A40;margin-top:4px">Все встречаются · 19:30</div>'}
         </div>
       </div>`;
