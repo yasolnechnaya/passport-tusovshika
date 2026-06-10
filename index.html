@@ -152,6 +152,7 @@ textarea{font-family:inherit}
   <div class="reward-card" id="reward"><div class="reward-text" id="reward-text">🏆 Все 10 печатей!</div></div>
   <div class="save-ind" id="save-ind"></div>
   <button class="btn-outline" onclick="logout()">Сменить имя</button>
+  <button class="btn-outline" onclick="resetQuest()" style="color:#C07D0A;border-color:#C07D0A;margin-top:4px">Сбросить прогресс квеста</button>
   <button class="admin-link" onclick="goAdmin()">панель организатора</button>
 </div>
 
@@ -411,6 +412,32 @@ function setSaveInd(s){
 
 function logout(){myData=null;ni.value='';bs.disabled=true;document.getElementById('nav').classList.remove('show');goPage('p-enter');}
 
+async function unlockBar(bi, barName){
+  const input = document.getElementById('unlock_'+bi);
+  if(!input) return;
+  const val = input.value.trim().toUpperCase();
+  if(val === barName.toUpperCase()){
+    // Правильно! Отмечаем предыдущий бар как выполненный чтобы разблокировать
+    const prevPk = 'bar_'+(bi-1);
+    if(!questProgress[prevPk]) questProgress[prevPk] = [true,true,true];
+    else questProgress[prevPk] = [true,true,true];
+    dbSet('/guests/'+nameKey(myData.name)+'/quest', questProgress);
+    renderQuestTab();
+  } else {
+    const err = document.getElementById('unlock_err_'+bi);
+    if(err){ err.style.display='block'; setTimeout(()=>err.style.display='none',2000); }
+  }
+}
+
+function resetQuest(){
+  if(!myData) return;
+  if(confirm('Сбросить прогресс квеста? Печати и музлото останутся.')){
+    questProgress={};
+    await dbDel('/guests/'+nameKey(myData.name)+'/quest');
+    switchTab('quest');
+  }
+}
+
 async function goAdmin(){
   goPage('p-loading');
   const all=await dbGet('/guests')||{};
@@ -495,6 +522,12 @@ function renderQuestTab(){
 
   // Определяем какие бары разблокированы
   // Первый всегда открыт, следующий открывается только после выполнения всех заданий предыдущего
+  const RIDDLES = {
+    'Тесла': 'Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит',
+    'Хоровод': 'Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему',
+    'Миднайт': 'Когда Золушка уже потеряла туфельку, а вампиры только выходят на работу, наступает время, которое зашифровано в названии следующей точки маршрута',
+  };
+
   let html='';
   rot.forEach((bar,bi)=>{
     const bd=BAR_DATA[bar];
@@ -512,15 +545,15 @@ function renderQuestTab(){
     }
 
     if(!unlocked){
-      const RIDDLES = {
-        'Тесла': 'Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит',
-        'Хоровод': 'Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему',
-        'Миднайт': 'Когда Золушка уже потеряла туфельку, а вампиры только выходят на работу, наступает время, которое зашифровано в названии следующей точки маршрута',
-      };
-      const riddle = RIDDLES[bar] || 'Выполни задания в предыдущем баре';
       html+=`<div class="bar-card" style="background:#f8f7f4">
         <div class="bar-name">🔒 Следующая точка</div>
-        <div class="bar-addr" style="font-size:13px;color:#1a1a1a;line-height:1.6;margin-top:8px;font-style:italic">${riddle}</div>
+        <div style="font-size:13px;color:#1a1a1a;line-height:1.6;margin-top:8px;font-style:italic;padding:10px;background:#FFF8E1;border-radius:8px;border:0.5px solid #FFD700">🔐 ${RIDDLES[bar] || 'Загадка появится после выполнения заданий'}</div>
+        <div style="margin-top:10px">
+          <div style="font-size:11px;color:#aaa;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em">Введи название бара</div>
+          <input id="unlock_${bi}" style="width:100%;font-size:16px;font-weight:500;border:none;border-bottom:1px solid #ddd;background:transparent;outline:none;padding:4px 0;text-transform:uppercase;letter-spacing:0.08em" placeholder="Название бара..." onkeydown="if(event.key==='Enter')unlockBar(${bi},'${bar}')">
+          <button onclick="unlockBar(${bi},'${bar}')" style="width:100%;padding:10px;border:none;border-radius:8px;background:#1A7A40;color:#fff;font-size:13px;font-weight:600;cursor:pointer;margin-top:8px">Разблокировать ✓</button>
+          <div id="unlock_err_${bi}" style="font-size:12px;color:#E8251A;margin-top:6px;display:none">Неверное название, попробуй ещё раз</div>
+        </div>
       </div>`;
     } else {
       html+=`<div class="bar-card">
