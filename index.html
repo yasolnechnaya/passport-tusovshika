@@ -205,8 +205,10 @@ textarea{font-family:inherit}
   </div>
   <div id="team-route" style="display:none"></div>
   <div id="code-block" class="code-block">
-    <div class="lbl">Куда идёт твоя команда?</div>
-    <div style="font-size:13px;color:#888;margin-bottom:12px;line-height:1.5">На старте вы получили загадку — разгадайте её и введите название первого бара</div>
+    <div class="lbl">Ваша загадка</div>
+    <div id="riddle-tesla" style="font-size:14px;color:#1a1a1a;line-height:1.6;margin-bottom:14px;font-style:italic;padding:10px;background:#f8f7f4;border-radius:8px;display:none">«Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит»</div>
+    <div id="riddle-horovod" style="font-size:14px;color:#1a1a1a;line-height:1.6;margin-bottom:14px;font-style:italic;padding:10px;background:#f8f7f4;border-radius:8px;display:none">«Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему»</div>
+    <div class="lbl">Введи название первого бара</div>
     <input class="code-input" id="code-input" onkeydown="if(event.key==='Enter')checkCode()" placeholder="Название бара..." maxlength="30" autocomplete="off">
     <div class="code-error" id="code-error">Неверное название, попробуй ещё раз</div>
     <button class="btn" style="margin-top:12px" onclick="checkCode()">Начать квест 🗺</button>
