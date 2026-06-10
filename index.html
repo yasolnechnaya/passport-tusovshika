@@ -473,7 +473,17 @@ function renderQuestTab(){
   const barTasks = document.getElementById('bar-tasks');
   if(codeBlock) codeBlock.style.display = questStarted ? 'none' : 'block';
   if(barTasks) barTasks.style.display = questStarted ? 'block' : 'none';
-  if(!questStarted) return;
+  if(!questStarted) {
+    // Показываем загадку для первого бара команды
+    const START_RIDDLES = {
+      'Тесла': 'Найди место, где электричество подают без розеток, где имя учёного висит над входом, а адрес ищут на улице, которая никогда не спит.',
+      'Хоровод': 'Здесь никто не просит браться за руки. Но чем больше друзей приходит вместе, тем сильнее название места начинает соответствовать происходящему.',
+    };
+    const firstBar = rot[0];
+    const riddleEl = document.getElementById('start-riddle');
+    if(riddleEl) riddleEl.textContent = START_RIDDLES[firstBar] || 'Загадка будет выдана на старте организатором.';
+    return;
+  }
 
   const te=document.getElementById('bar-tasks');if(!te)return;
 
@@ -535,6 +545,45 @@ function toggleQT(bi,ti){
   renderQuestTab();
   if(questSaveTimer)clearTimeout(questSaveTimer);
   questSaveTimer=setTimeout(()=>dbSet('/guests/'+nameKey(myData.name)+'/quest',questProgress),1000);
+}
+
+// ===== КОРАБЛЬ =====
+const SHIP_TASKS_ALL = [
+  {e:"🪙", t:"Кинуть монетку Чижику-Пыжику", d:"Фото в момент броска — в чат!"},
+  {e:"💋", t:"Поцеловать именинника у Поцелуева моста", d:"Фото с именинником — в чат!"},
+  {e:"🇪🇬", t:"Египетское фото на фоне Египетского моста", d:"Постройте пирамиду — в чат!"},
+  {e:"🌉", t:"Посчитать мосты на Семимостье", d:"Сколько насчитали — напишите в чат"},
+  {e:"🎭", t:"Сыграть Гамлета на фоне драматического театра", d:"Видео монолога — в чат!"},
+  {e:"🏛", t:"Найти дом графа — пятиюродного брата всем известного писателя на Фонтанке", d:"Фото у дома — в чат!"},
+  {e:"🐘", t:"Найти и попытаться продать перевёрнутого слона", d:"Видео продажи — в чат!"},
+  {e:"🎬", t:"Сфоткать дом из фильма Питер FM", d:"Фото — в чат!"},
+  {e:"🐾", t:"Погладить кого-то на фоне дома-утюга", d:"Фото с поглаживанием — в чат!"},
+  {e:"🗡️", t:"Обсудить откуда на Распутина готовилось нападение", d:"Видео дискуссии у Мойки — в чат!"},
+  {e:"🌈", t:"Сфоткаться с тремя мостами и тремя вещами одного цвета", d:"Фото — в чат!"},
+  {e:"😂", t:"Поржать на фоне конюшен", d:"Видео смеха — в чат!"},
+  {e:"🩰", t:"Вспомнить 3 артистов балета возле Мариинки", d:"Видео с именами — в чат!"},
+];
+
+function renderShipTasks() {
+  const el = document.getElementById('ship-tasks');
+  if(!el || !myData) return;
+  const hv = h(myData.name + '_ship');
+  const pool = [...SHIP_TASKS_ALL];
+  for(let i=pool.length-1;i>0;i--){
+    const j=Math.abs((hv*(i+1))^(hv>>3))%(i+1);
+    [pool[i],pool[j]]=[pool[j],pool[i]];
+  }
+  const tasks = pool.slice(0,4);
+  el.innerHTML = tasks.map(t => `<div style="display:flex;gap:12px;padding:10px 0;border-bottom:0.5px solid #f0eee8;align-items:flex-start"><div style="font-size:24px;flex-shrink:0">${t.e}</div><div><div style="font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:2px">${t.t}</div><div style="font-size:12px;color:#aaa">${t.d}</div></div></div>`).join('');
+}
+
+async function saveCongrats() {
+  if(!myData) return;
+  const text = document.getElementById('congrats-text').value.trim();
+  if(!text) return;
+  await dbSet('/congrats/' + nameKey(myData.name), {name: myData.name, text, team: myData.team});
+  document.getElementById('congrats-saved').style.display = 'block';
+  setTimeout(()=>document.getElementById('congrats-saved').style.display='none', 3000);
 }
 
 // Навигация
