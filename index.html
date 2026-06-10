@@ -484,8 +484,9 @@ function scheduleMzSave(){
 // Квест
 function checkCode(){
   const val = document.getElementById('code-input').value.trim().toUpperCase();
-  const VALID = ['ТЕСЛА', 'ХОРОВОД', 'МИДНАЙТ'];
-  if(VALID.includes(val)) {
+  const rot = ROTATION[myData.team];
+  const firstBar = rot ? rot[0].toUpperCase() : null;
+  if(val === firstBar) {
     questProgress['started'] = true;
     questProgress['unlocked_0'] = true;
     dbSet('/guests/'+nameKey(myData.name)+'/quest', questProgress);
