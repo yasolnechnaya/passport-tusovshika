@@ -417,10 +417,7 @@ async function unlockBar(bi, barName){
   if(!input) return;
   const val = input.value.trim().toUpperCase();
   if(val === barName.toUpperCase()){
-    // Правильно! Отмечаем предыдущий бар как выполненный чтобы разблокировать
-    const prevPk = 'bar_'+(bi-1);
-    if(!questProgress[prevPk]) questProgress[prevPk] = [true,true,true];
-    else questProgress[prevPk] = [true,true,true];
+    questProgress['unlocked_'+bi] = true;
     dbSet('/guests/'+nameKey(myData.name)+'/quest', questProgress);
     renderQuestTab();
   } else {
@@ -490,6 +487,7 @@ function checkCode(){
   const VALID = ['ТЕСЛА', 'ХОРОВОД', 'МИДНАЙТ'];
   if(VALID.includes(val)) {
     questProgress['started'] = true;
+    questProgress['unlocked_0'] = true;
     dbSet('/guests/'+nameKey(myData.name)+'/quest', questProgress);
     renderQuestTab();
   } else {
@@ -537,11 +535,12 @@ function renderQuestTab(){
     const next=rot[bi+1]||null;
 
     // Проверяем разблокирован ли этот бар
-    let unlocked = bi===0;
-    if(bi>0){
+    // Все бары требуют ввода кодового слова - первый через стартовый экран, остальные через загадки
+    let unlocked = questProgress['unlocked_'+bi] === true;
+    if(!unlocked && bi>0){
       const prevPk='bar_'+(bi-1);
       const prevPr=questProgress[prevPk]||[false,false,false];
-      unlocked=prevPr.every(Boolean);
+      if(prevPr.every(Boolean)) unlocked=true;
     }
 
     if(!unlocked){
